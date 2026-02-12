@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
-        /* Սա թաքցնում է բոլոր լեզվական բաժինները լռելյայն */
-        .lang-node { display: none !important; }
-        /* Սա ցույց է տալիս միայն ընտրված լեզուն */
-        .lang-active { display: block !important; }
+        
+        .lang-node { display: none; }
+        
+        #hy-hero, #modal-content-hy { display: block; }
     </style>
 </head>
 <body class="bg-white font-sans text-gray-900 leading-normal">
@@ -24,12 +24,12 @@
             </div>
             
             <div class="flex items-center space-x-4">
-                <select onchange="changeLanguage(this.value)" class="bg-gray-50 border border-gray-200 rounded-lg px-2 py-1 text-sm outline-none cursor-pointer">
+                <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-gray-50 border border-gray-200 rounded-lg px-2 py-1 text-sm outline-none cursor-pointer">
                     <option value="hy">AM</option>
                     <option value="en">EN</option>
                     <option value="ru">RU</option>
                 </select>
-                <button onclick="trackAndOpen()" class="bg-green-600 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-green-700 transition shadow-md">Get Access</button>
+                <button onclick="trackAndOpen()" class="bg-green-600 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-green-700 transition">Get Access</button>
             </div>
         </div>
     </header>
@@ -37,26 +37,28 @@
     <section class="pt-32 pb-20 px-6">
         <div class="container mx-auto flex flex-col md:flex-row items-center gap-12">
             <div class="md:w-1/2">
-                <div id="hy-hero" class="lang-node lang-active">
-                    <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6 text-gray-900">Աճեցրեք թարմ սնունդ <span class="text-green-600 italic">ավտոմատացված</span> ջերմոցով</h1>
+                
+                <div id="hy-hero" class="lang-node">
+                    <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">Աճեցրեք թարմ սնունդ <span class="text-green-600 italic">ավտոմատացված</span> ջերմոցով</h1>
                     <p class="text-xl text-gray-500 mb-10 leading-relaxed">Մոդուլային համակարգ՝ տան և բակի համար։ Լիարժեք վերահսկողություն տեղային սերվերի միջոցով։</p>
-                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95 border-none cursor-pointer">Գնել հիմա</button>
+                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95">Գնել հիմա</button>
                 </div>
                 
                 <div id="en-hero" class="lang-node">
                     <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">Grow fresh food with <span class="text-green-600 italic">automated</span> greenhouse</h1>
                     <p class="text-xl text-gray-500 mb-10 leading-relaxed">Modular system for home and backyard. Full control via local server.</p>
-                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95 border-none cursor-pointer">Buy Now</button>
+                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95">Buy Now</button>
                 </div>
                 
                 <div id="ru-hero" class="lang-node">
                     <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">Выращивайте свежую еду в <span class="text-green-600 italic">умной</span> теплице</h1>
                     <p class="text-xl text-gray-500 mb-10 leading-relaxed">Модульная система для дома и сада. Полный контроль через локальный сервер.</p>
-                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95 border-none cursor-pointer">Купить сейчас</button>
+                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95">Купить сейчас</button>
                 </div>
+
             </div>
             <div class="md:w-1/2">
-                <img src="hero-render.jpeg" alt="Smart Greenhouse Render" class="rounded-[2.5rem] shadow-2xl border-8 border-gray-50">
+                <img src="hero-render.jpeg" alt="Render" class="rounded-[2.5rem] shadow-2xl border-8 border-gray-50">
             </div>
         </div>
     </section>
@@ -79,34 +81,35 @@
         <div class="bg-white rounded-[2rem] p-10 max-w-md w-full relative">
             <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-300 hover:text-gray-900 bg-transparent border-none cursor-pointer"><i class="fas fa-times text-2xl"></i></button>
             
-            <div id="modal-content-hy" class="lang-node lang-active">
+            <div id="modal-content-hy" class="lang-node">
                 <h2 class="text-3xl font-black mb-4">Գրանցվեք սպասման ցուցակում</h2>
-                <p class="text-gray-500 mb-6 text-sm">Շնորհակալություն հետաքրքրության համար: Թողեք ձեր Email-ը 25% զեղչ ստանալու համար:</p>
+                <p class="text-gray-500 mb-6">Թողեք ձեր Email-ը 25% զեղչ ստանալու համար:</p>
             </div>
             <div id="modal-content-en" class="lang-node">
                 <h2 class="text-3xl font-black mb-4">Join Waitlist</h2>
-                <p class="text-gray-500 mb-6 text-sm">Thank you for your interest! Leave your Email to get a 25% discount.</p>
+                <p class="text-gray-500 mb-6">Leave your Email to get a 25% discount.</p>
             </div>
             <div id="modal-content-ru" class="lang-node">
                 <h2 class="text-3xl font-black mb-4">Лист ожидания</h2>
-                <p class="text-gray-500 mb-6 text-sm">Спасибо за интерес! Оставьте свой Email, чтобы получить скидку 25%.</p>
+                <p class="text-gray-500 mb-6">Оставьте свой Email, чтобы получить скидку 25%.</p>
             </div>
             
             <form action="https://formspree.io/f/YOUR_ID" method="POST" class="space-y-4">
                 <input type="email" name="email" placeholder="Email" required class="w-full px-6 py-4 border border-gray-200 rounded-2xl outline-none focus:ring-2 focus:ring-green-500">
-                <button type="submit" class="w-full bg-gray-900 text-white py-5 rounded-2xl font-black uppercase hover:bg-green-600 transition cursor-pointer">Ուղարկել / Send</button>
+                <button type="submit" class="w-full bg-gray-900 text-white py-5 rounded-2xl font-black uppercase tracking-tighter hover:bg-green-600 transition">Ուղարկել / Send</button>
             </form>
         </div>
     </div>
 
     <script>
-        const RASPBERRY_PI_IP = "http://192.168.1.100:5000"; //Գրիշ ՔՈ IP-ին գրի RASPBERRY_PI
+        const RASPBERRY_PI_IP = "http://192.168.1.100:5000"; //RASPBERRY_PI_IP թվեռը կգրես
 
         function changeLanguage(lang) {
-            document.querySelectorAll('.lang-node').forEach(el => el.classList.remove('lang-active'));
-            
-            document.getElementById(`${lang}-hero`).classList.add('lang-active');
-            document.getElementById(`modal-content-${lang}`).classList.add('lang-active');
+            document.querySelectorAll('.lang-node').forEach(el => {
+                el.style.display = 'none';
+            });
+            document.getElementById(`${lang}-hero`).style.display = 'block';
+            document.getElementById(`modal-content-${lang}`).style.display = 'block';
             
             const titles = { hy: 'Իրական Պրոտոտիպը', en: 'Real Prototype', ru: 'Реальный Прототип' };
             document.getElementById('proto-title').innerText = titles[lang];
@@ -118,7 +121,7 @@
         async function trackAndOpen() {
             updateLocalStats();
             try {
-		//RASPBERRY_PI_IP թվեռը կգրես
+		//Գրիշ ՔՈ IP-ին գրի RASPBERRY_PI
                 await fetch(`${RASPBERRY_PI_IP}/track-click`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
