@@ -17,7 +17,7 @@
     <header class="fixed w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <img src="1000018416.jpg" alt="Logo" class="w-10 h-10 rounded-full shadow-sm">
+                <img src="logo.png" alt="Sparta Logo" class="w-10 h-10 rounded-full shadow-sm">
                 <span class="text-xl font-bold tracking-tighter text-gray-800 uppercase">Sparta</span>
             </div>
             
@@ -27,7 +27,7 @@
                     <option value="en">EN</option>
                     <option value="ru">RU</option>
                 </select>
-                <button onclick="trackAndOpen()" class="bg-green-600 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-green-700 transition shadow-md">Get Access</button>
+                <button onclick="trackAndOpen()" class="bg-green-600 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-green-700 transition">Get Access</button>
             </div>
         </div>
     </header>
@@ -36,33 +36,33 @@
         <div class="container mx-auto flex flex-col md:flex-row items-center gap-12">
             <div class="md:w-1/2">
                 <div id="hy-hero" class="lang-node lang-active">
-                    <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">Աճեցրեք թարմ սնունդ <span class="text-green-600 italic">ավտոմատացված</span> ջերմոցով</h1>
+                    <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6 text-gray-900">Աճեցրեք թարմ սնունդ <span class="text-green-600 italic">ավտոմատացված</span> ջերմոցով</h1>
                     <p class="text-xl text-gray-500 mb-10 leading-relaxed">Մոդուլային համակարգ՝ տան և բակի համար։ Լիարժեք վերահսկողություն տեղային սերվերի միջոցով։</p>
-                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95">Գնել հիմա</button>
+                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95 border-none cursor-pointer">Գնել հիմա</button>
                 </div>
                 <div id="en-hero" class="lang-node">
                     <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">Grow fresh food with <span class="text-green-600 italic">automated</span> greenhouse</h1>
                     <p class="text-xl text-gray-500 mb-10 leading-relaxed">Modular system for home and backyard. Full control via local server.</p>
-                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95">Buy Now</button>
+                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95 border-none cursor-pointer">Buy Now</button>
                 </div>
                 <div id="ru-hero" class="lang-node">
                     <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">Выращивайте свежую еду в <span class="text-green-600 italic">умной</span> теплице</h1>
                     <p class="text-xl text-gray-500 mb-10 leading-relaxed">Модульная система для дома и сада. Полный контроль через локальный сервер.</p>
-                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95">Купить сейчас</button>
+                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95 border-none cursor-pointer">Купить сейчас</button>
                 </div>
             </div>
             <div class="md:w-1/2">
-                <img src="1000018419.png" alt="Render" class="rounded-[2.5rem] shadow-2xl border-8 border-gray-50">
+                <img src="hero-render.jpeg" alt="Smart Greenhouse Render" class="rounded-[2.5rem] shadow-2xl border-8 border-gray-50">
             </div>
         </div>
     </section>
 
     <section class="bg-gray-50 py-20 px-6">
         <div class="container mx-auto text-center">
-            <h2 id="proto-title" class="text-3xl font-bold mb-12 uppercase tracking-widest text-gray-400">Իրական Պրոտոտիպը</h2>
+            <h2 id="proto-title" class="text-3xl font-bold mb-12 uppercase tracking-widest text-gray-400 font-mono">Իրական Պրոտոտիպը</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <img src="1000018299.jpg" class="rounded-3xl shadow-lg border-4 border-white hover:scale-105 transition duration-300">
-                <img src="1000018302.jpg" class="rounded-3xl shadow-lg border-4 border-white hover:scale-105 transition duration-300">
+                <img src="prototype-1.jpg" alt="Prototype 1" class="rounded-3xl shadow-lg border-4 border-white hover:scale-105 transition-transform duration-300">
+                <img src="prototype-2.jpg" alt="Prototype 2" class="rounded-3xl shadow-lg border-4 border-white hover:scale-105 transition-transform duration-300">
             </div>
         </div>
     </section>
@@ -73,36 +73,37 @@
 
     <div id="buyModal" class="modal flex items-center justify-center px-4">
         <div class="bg-white rounded-[2rem] p-10 max-w-md w-full relative">
-            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-300 hover:text-gray-900"><i class="fas fa-times text-2xl"></i></button>
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-300 hover:text-gray-900 bg-transparent border-none cursor-pointer"><i class="fas fa-times text-2xl"></i></button>
             <div id="modal-content-hy" class="lang-node lang-active">
-                <h2 class="text-3xl font-black mb-4">Գրեթե պատրաստ է!</h2>
-                <p class="text-gray-500 mb-6 italic text-sm">Շնորհակալություն հետաքրքրության համար:</p>
-                <p class="text-gray-800 font-bold mb-4">Թողեք ձեր Email-ը 25% զեղչ ստանալու համար:</p>
+                <h2 class="text-3xl font-black mb-4">Գրանցվեք սպասման ցուցակում</h2>
+                <p class="text-gray-500 mb-6 text-sm">Շնորհակալություն հետաքրքրության համար: Թողեք ձեր Email-ը 25% զեղչ ստանալու համար:</p>
             </div>
             <div id="modal-content-en" class="lang-node">
-                <h2 class="text-3xl font-black mb-4">Almost Ready!</h2>
-                <p class="text-gray-500 mb-6 italic text-sm">Thank you for your interest!</p>
-                <p class="text-gray-800 font-bold mb-4">Leave your email to get a 25% discount:</p>
+                <h2 class="text-3xl font-black mb-4">Join Waitlist</h2>
+                <p class="text-gray-500 mb-6 text-sm">Leave your Email to get a 25% discount for your first order.</p>
             </div>
             <div id="modal-content-ru" class="lang-node">
-                <h2 class="text-3xl font-black mb-4">Почти готово!</h2>
-                <p class="text-gray-500 mb-6 italic text-sm">Спасибо за интерес!</p>
-                <p class="text-gray-800 font-bold mb-4">Оставьте email, чтобы получить скидку 25%:</p>
+                <h2 class="text-3xl font-black mb-4">Лист ожидания</h2>
+                <p class="text-gray-500 mb-6 text-sm">Оставьте свой Email, чтобы получить скидку 25%.</p>
             </div>
             
             <form action="https://formspree.io/f/YOUR_ID" method="POST" class="space-y-4">
                 <input type="email" name="email" placeholder="Email" required class="w-full px-6 py-4 border border-gray-200 rounded-2xl outline-none focus:ring-2 focus:ring-green-500">
-                <input type="hidden" name="Action" value="Pre-order Button Clicked">
-                <button type="submit" class="w-full bg-gray-900 text-white py-5 rounded-2xl font-black uppercase tracking-tighter hover:bg-green-600 transition">Ուղարկել / Send</button>
+                <input type="hidden" name="Source" value="Pre-order Button">
+                <button type="submit" class="w-full bg-gray-900 text-white py-5 rounded-2xl font-black uppercase tracking-tighter hover:bg-green-600 transition cursor-pointer">Ուղարկել</button>
             </form>
         </div>
     </div>
 
     <script>
+        const RASPBERRY_PI_IP = "http://192.168.1.100:5000"; //Գրիշ ՔՈ IP-ին գրի RASPBERRY_PI
+
         function changeLanguage(lang) {
             document.querySelectorAll('.lang-node').forEach(el => el.classList.remove('lang-active'));
             document.getElementById(`${lang}-hero`).classList.add('lang-active');
-            document.getElementById(`modal-content-${lang}`).classList.add('lang-active');
+            if(document.getElementById(`modal-content-${lang}`)) {
+                document.getElementById(`modal-content-${lang}`).classList.add('lang-active');
+            }
             const titles = { hy: 'Իրական Պրոտոտիպը', en: 'Real Prototype', ru: 'Реальный Прототип' };
             document.getElementById('proto-title').innerText = titles[lang];
         }
@@ -110,10 +111,170 @@
         function openModal() { document.getElementById('buyModal').style.display = 'flex'; }
         function closeModal() { document.getElementById('buyModal').style.display = 'none'; }
 
-        function trackAndOpen() {
-            // Սա գրանցում է կլիկը բրաուզերի console-ում վիզուալ ստուգման համար
-            console.log("%c [SPARTA TRACKING]: 'BUY' button clicked! ", "background: #16a34a; color: white; font-weight: bold;");
+        async function trackAndOpen() {
+            updateLocalStats();
+            try {
+		//RASPBERRY_PI_IP թվեռը կգրես 
+                await fetch(`${RASPBERRY_PI_IP}/track-click`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ button: "Buy Now", time: new Date().toLocaleString() })
+                });
+            } catch (e) {
+                console.log("Raspberry սերվերը անհասանելի է, բայց տվյալը պահվեց LocalStorage-ում:");
+            }
             openModal();
+        }
+	
+        function updateLocalStats() {
+            const today = new Date().toISOString().split('T')[0];
+            let stats = JSON.parse(localStorage.getItem('sparta_stats')) || {};
+            stats[today] = (stats[today] || 0) + 1;
+            localStorage.setItem('sparta_stats', JSON.stringify(stats));
+            console.clear();
+            console.log("%c [SPARTA DAILY STATS] ", "background: #16a34a; color: white; font-weight: bold;");
+            console.table(stats);
+        }
+
+        window.onclick = function(e) { if (e.target == document.getElementById('buyModal')) closeModal(); }
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparta | Smart Greenhouse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
+        .lang-node { display: none; }
+        .lang-active { display: block; }
+    </style>
+</head>
+<body class="bg-white font-sans text-gray-900 leading-normal">
+
+    <header class="fixed w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="logo.png" alt="Sparta Logo" class="w-10 h-10 rounded-full shadow-sm">
+                <span class="text-xl font-bold tracking-tighter text-gray-800 uppercase">Sparta</span>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <select onchange="changeLanguage(this.value)" class="bg-gray-50 border border-gray-200 rounded-lg px-2 py-1 text-sm outline-none cursor-pointer">
+                    <option value="hy">AM</option>
+                    <option value="en">EN</option>
+                    <option value="ru">RU</option>
+                </select>
+                <button onclick="trackAndOpen()" class="bg-green-600 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-green-700 transition">Get Access</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="pt-32 pb-20 px-6">
+        <div class="container mx-auto flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <div id="hy-hero" class="lang-node lang-active">
+                    <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6 text-gray-900">Աճեցրեք թարմ սնունդ <span class="text-green-600 italic">ավտոմատացված</span> ջերմոցով</h1>
+                    <p class="text-xl text-gray-500 mb-10 leading-relaxed">Մոդուլային համակարգ՝ տան և բակի համար։ Լիարժեք վերահսկողություն տեղային սերվերի միջոցով։</p>
+                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95 border-none cursor-pointer">Գնել հիմա</button>
+                </div>
+                <div id="en-hero" class="lang-node">
+                    <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">Grow fresh food with <span class="text-green-600 italic">automated</span> greenhouse</h1>
+                    <p class="text-xl text-gray-500 mb-10 leading-relaxed">Modular system for home and backyard. Full control via local server.</p>
+                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95 border-none cursor-pointer">Buy Now</button>
+                </div>
+                <div id="ru-hero" class="lang-node">
+                    <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">Выращивайте свежую еду в <span class="text-green-600 italic">умной</span> теплице</h1>
+                    <p class="text-xl text-gray-500 mb-10 leading-relaxed">Модульная система для дома и сада. Полный контроль через локальный сервер.</p>
+                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95 border-none cursor-pointer">Купить сейчас</button>
+                </div>
+            </div>
+            <div class="md:w-1/2">
+                <img src="hero-render.jpeg" alt="Smart Greenhouse Render" class="rounded-[2.5rem] shadow-2xl border-8 border-gray-50">
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-50 py-20 px-6">
+        <div class="container mx-auto text-center">
+            <h2 id="proto-title" class="text-3xl font-bold mb-12 uppercase tracking-widest text-gray-400 font-mono">Իրական Պրոտոտիպը</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <img src="prototype-1.jpg" alt="Prototype 1" class="rounded-3xl shadow-lg border-4 border-white hover:scale-105 transition-transform duration-300">
+                <img src="prototype-2.jpg" alt="Prototype 2" class="rounded-3xl shadow-lg border-4 border-white hover:scale-105 transition-transform duration-300">
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center text-gray-400 text-sm border-t border-gray-100">
+        <p>© 2026 Smart Greenhouse Project by Sparta. Built with GitHub.</p>
+    </footer>
+
+    <div id="buyModal" class="modal flex items-center justify-center px-4">
+        <div class="bg-white rounded-[2rem] p-10 max-w-md w-full relative">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-300 hover:text-gray-900 bg-transparent border-none cursor-pointer"><i class="fas fa-times text-2xl"></i></button>
+            <div id="modal-content-hy" class="lang-node lang-active">
+                <h2 class="text-3xl font-black mb-4">Գրանցվեք սպասման ցուցակում</h2>
+                <p class="text-gray-500 mb-6 text-sm">Շնորհակալություն հետաքրքրության համար: Թողեք ձեր Email-ը 25% զեղչ ստանալու համար:</p>
+            </div>
+            <div id="modal-content-en" class="lang-node">
+                <h2 class="text-3xl font-black mb-4">Join Waitlist</h2>
+                <p class="text-gray-500 mb-6 text-sm">Leave your Email to get a 25% discount for your first order.</p>
+            </div>
+            <div id="modal-content-ru" class="lang-node">
+                <h2 class="text-3xl font-black mb-4">Лист ожидания</h2>
+                <p class="text-gray-500 mb-6 text-sm">Оставьте свой Email, чтобы получить скидку 25%.</p>
+            </div>
+            
+            <form action="https://formspree.io/f/YOUR_ID" method="POST" class="space-y-4">
+                <input type="email" name="email" placeholder="Email" required class="w-full px-6 py-4 border border-gray-200 rounded-2xl outline-none focus:ring-2 focus:ring-green-500">
+                <input type="hidden" name="Source" value="Pre-order Button">
+                <button type="submit" class="w-full bg-gray-900 text-white py-5 rounded-2xl font-black uppercase tracking-tighter hover:bg-green-600 transition cursor-pointer">Ուղարկել</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const RASPBERRY_PI_IP = "http://192.168.1.100:5000"; //Գրիշ ՔՈ IP-ին գրի RASPBERRY_PI
+
+        function changeLanguage(lang) {
+            document.querySelectorAll('.lang-node').forEach(el => el.classList.remove('lang-active'));
+            document.getElementById(`${lang}-hero`).classList.add('lang-active');
+            if(document.getElementById(`modal-content-${lang}`)) {
+                document.getElementById(`modal-content-${lang}`).classList.add('lang-active');
+            }
+            const titles = { hy: 'Իրական Պրոտոտիպը', en: 'Real Prototype', ru: 'Реальный Прототип' };
+            document.getElementById('proto-title').innerText = titles[lang];
+        }
+
+        function openModal() { document.getElementById('buyModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('buyModal').style.display = 'none'; }
+
+        async function trackAndOpen() {
+            updateLocalStats();
+            try {
+		//RASPBERRY_PI_IP թվեռը կգրես 
+                await fetch(`${RASPBERRY_PI_IP}/track-click`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ button: "Buy Now", time: new Date().toLocaleString() })
+                });
+            } catch (e) {
+                console.log("Raspberry սերվերը անհասանելի է, բայց տվյալը պահվեց LocalStorage-ում:");
+            }
+            openModal();
+        }
+	
+        function updateLocalStats() {
+            const today = new Date().toISOString().split('T')[0];
+            let stats = JSON.parse(localStorage.getItem('sparta_stats')) || {};
+            stats[today] = (stats[today] || 0) + 1;
+            localStorage.setItem('sparta_stats', JSON.stringify(stats));
+            console.clear();
+            console.log("%c [SPARTA DAILY STATS] ", "background: #16a34a; color: white; font-weight: bold;");
+            console.table(stats);
         }
 
         window.onclick = function(e) { if (e.target == document.getElementById('buyModal')) closeModal(); }
