@@ -7,139 +7,198 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
-        
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
         .lang-node { display: none; }
+        .lang-active { display: block; }
         
-        #hy-hero, #modal-content-hy { display: block; }
+        #adminPanel { 
+            display: none; 
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            background: #1e293b; 
+            color: #f8fafc;
+            border: 1px solid #334155; 
+            padding: 25px; 
+            border-radius: 20px; 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); 
+            width: 380px; 
+            z-index: 200; 
+            max-height: 80vh; 
+            overflow-y: auto;
+            font-family: monospace;
+        }
+        .stat-card { background: #334155; padding: 15px; border-radius: 12px; border: 1px solid #475569; }
+        .log-item { border-left: 4px solid #10b981; background: #0f172a; padding: 10px; margin-top: 8px; border-radius: 4px; }
+        
+        .hero-bg { width: 100%; height: 70vh; object-fit: cover; }
+        .sparta-logo-text { color: #1f2937; }
     </style>
 </head>
-<body class="bg-white font-sans text-gray-900 leading-normal">
+<body class="bg-white font-sans text-slate-900">
 
-    <header class="fixed w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <header class="fixed w-full bg-white/95 backdrop-blur-md z-50 border-b border-slate-100">
+        <div class="w-full px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <img src="logo.png" alt="Sparta Logo" class="w-10 h-10 rounded-full shadow-sm">
-                <span class="text-xl font-bold tracking-tighter text-gray-800 uppercase">Sparta</span>
+                <img src="logo.png" alt="Logo" class="w-10 h-10 rounded-full">
+                <span class="text-2xl font-black tracking-tighter uppercase sparta-logo-text">Sparta</span>
             </div>
-            
-            <div class="flex items-center space-x-4">
-                <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-gray-50 border border-gray-200 rounded-lg px-2 py-1 text-sm outline-none cursor-pointer">
+            <div class="flex items-center space-x-6">
+                <select onchange="changeLanguage(this.value)" class="bg-transparent border-none text-sm font-bold cursor-pointer outline-none text-slate-600">
                     <option value="hy">AM</option>
                     <option value="en">EN</option>
                     <option value="ru">RU</option>
                 </select>
-                <button onclick="trackAndOpen()" class="bg-green-600 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-green-700 transition">Get Access</button>
+                <button onclick="trackAndOpen()" class="bg-[#1f2937] text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-green-600 transition shadow-lg">Get Access</button>
             </div>
         </div>
     </header>
 
-    <section class="pt-32 pb-20 px-6">
-        <div class="container mx-auto flex flex-col md:flex-row items-center gap-12">
-            <div class="md:w-1/2">
-                
-                <div id="hy-hero" class="lang-node">
-                    <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">Աճեցրեք թարմ սնունդ <span class="text-green-600 italic">ավտոմատացված</span> ջերմոցով</h1>
-                    <p class="text-xl text-gray-500 mb-10 leading-relaxed">Մոդուլային համակարգ՝ տան և բակի համար։ Լիարժեք վերահսկողություն տեղային սերվերի միջոցով։</p>
-                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95">Գնել հիմա</button>
-                </div>
-                
-                <div id="en-hero" class="lang-node">
-                    <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">Grow fresh food with <span class="text-green-600 italic">automated</span> greenhouse</h1>
-                    <p class="text-xl text-gray-500 mb-10 leading-relaxed">Modular system for home and backyard. Full control via local server.</p>
-                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95">Buy Now</button>
-                </div>
-                
-                <div id="ru-hero" class="lang-node">
-                    <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">Выращивайте свежую еду в <span class="text-green-600 italic">умной</span> теплице</h1>
-                    <p class="text-xl text-gray-500 mb-10 leading-relaxed">Модульная система для дома и сада. Полный контроль через локальный сервер.</p>
-                    <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95">Купить сейчас</button>
-                </div>
+    <section class="pt-16">
+        <img src="hero-render.jpg" alt="Smart Greenhouse" class="hero-bg">
+        
+        <div class="container mx-auto px-6 py-16 text-center">
+            
+            <div id="hy-hero" class="lang-node lang-active">
+                <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">Աճեցրեք թարմ սնունդ <span class="text-green-600 italic">ավտոմատացված</span> ջերմոցով</h1>
+                <p class="text-xl text-gray-500 mb-10 leading-relaxed">Մոդուլային համակարգ՝ տան և բակի համար։ Լիարժեք վերահսկողություն տեղային սերվերի միջոցով։</p>
+                <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95">Գնել հիմա</button>
+            </div>
 
+            <div id="en-hero" class="lang-node">
+                <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">Grow fresh food with <span class="text-green-600 italic">automated</span> greenhouse</h1>
+                <p class="text-xl text-gray-500 mb-10 leading-relaxed">Modular system for home and backyard. Full control via local server.</p>
+                <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95">Buy Now</button>
             </div>
-            <div class="md:w-1/2">
-                <img src="hero-render.jpeg" alt="Render" class="rounded-[2.5rem] shadow-2xl border-8 border-gray-50">
+
+            <div id="ru-hero" class="lang-node">
+                <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">Выращивайте свежую еду в <span class="text-green-600 italic">умной</span> теплице</h1>
+                <p class="text-xl text-gray-500 mb-10 leading-relaxed">Модульная система для дома и сада. Полный контроль через локальный сервер.</p>
+                <button onclick="trackAndOpen()" class="bg-green-600 text-white px-10 py-5 rounded-2xl text-xl font-bold uppercase shadow-2xl hover:scale-105 transition-all active:scale-95">Купить сейчас</button>
             </div>
+
         </div>
     </section>
 
-    <section class="bg-gray-50 py-20 px-6">
-        <div class="container mx-auto text-center">
-            <h2 id="proto-title" class="text-3xl font-bold mb-12 uppercase tracking-widest text-gray-400 font-mono">Իրական Պրոտոտիպը</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <img src="prototype-1.jpg" alt="Prototype 1" class="rounded-3xl shadow-lg border-4 border-white hover:scale-105 transition-transform duration-300">
-                <img src="prototype-2.jpg" alt="Prototype 2" class="rounded-3xl shadow-lg border-4 border-white hover:scale-105 transition-transform duration-300">
+    <div id="emailModal" class="modal items-center justify-center px-4">
+        <div class="bg-white rounded-[3rem] p-12 max-w-md w-full relative shadow-2xl text-center">
+            <button onclick="closeModals()" class="absolute top-8 right-8 text-slate-300 hover:text-slate-900"><i class="fas fa-times text-xl"></i></button>
+            <h2 class="text-3xl font-black mb-4 sparta-logo-text italic underline">Get Access</h2>
+            <p class="text-slate-500 mb-8 font-medium">Please enter your email to proceed.</p>
+            <div class="space-y-4">
+                <input type="email" id="userEmail" placeholder="Email" class="w-full px-6 py-5 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-green-500 text-lg">
+                <button onclick="goToCheckout()" class="w-full bg-[#1f2937] text-white py-5 rounded-2xl font-black uppercase hover:bg-green-600 transition">Continue</button>
             </div>
-        </div>
-    </section>
-
-    <footer class="py-10 text-center text-gray-400 text-sm border-t border-gray-100">
-        <p>© 2026 Smart Greenhouse Project by Sparta. Built with GitHub.</p>
-    </footer>
-
-    <div id="buyModal" class="modal flex items-center justify-center px-4">
-        <div class="bg-white rounded-[2rem] p-10 max-w-md w-full relative">
-            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-300 hover:text-gray-900 bg-transparent border-none cursor-pointer"><i class="fas fa-times text-2xl"></i></button>
-            
-            <div id="modal-content-hy" class="lang-node">
-                <h2 class="text-3xl font-black mb-4">Գրանցվեք սպասման ցուցակում</h2>
-                <p class="text-gray-500 mb-6">Թողեք ձեր Email-ը 25% զեղչ ստանալու համար:</p>
-            </div>
-            <div id="modal-content-en" class="lang-node">
-                <h2 class="text-3xl font-black mb-4">Join Waitlist</h2>
-                <p class="text-gray-500 mb-6">Leave your Email to get a 25% discount.</p>
-            </div>
-            <div id="modal-content-ru" class="lang-node">
-                <h2 class="text-3xl font-black mb-4">Лист ожидания</h2>
-                <p class="text-gray-500 mb-6">Оставьте свой Email, чтобы получить скидку 25%.</p>
-            </div>
-            
-            <form action="https://formspree.io/f/YOUR_ID" method="POST" class="space-y-4">
-                <input type="email" name="email" placeholder="Email" required class="w-full px-6 py-4 border border-gray-200 rounded-2xl outline-none focus:ring-2 focus:ring-green-500">
-                <button type="submit" class="w-full bg-gray-900 text-white py-5 rounded-2xl font-black uppercase tracking-tighter hover:bg-green-600 transition">Ուղարկել / Send</button>
-            </form>
         </div>
     </div>
 
+    <div id="paymentModal" class="modal items-center justify-center px-4">
+        <div class="bg-white rounded-[3rem] p-12 max-w-md w-full relative shadow-2xl">
+            <button onclick="closeModals()" class="absolute top-8 right-8 text-slate-300 hover:text-slate-900"><i class="fas fa-times text-xl"></i></button>
+            <h2 class="text-2xl font-black mb-8 italic flex items-center gap-3 text-green-600 underline">Checkout</h2>
+            <div class="space-y-4 text-left">
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
+                    <input type="text" id="cardNum" placeholder="Card Number" class="w-full bg-transparent outline-none text-xl tracking-widest font-mono">
+                </div>
+                <div class="flex gap-4">
+                    <input type="text" id="cardDate" placeholder="MM/YY" class="w-1/2 p-5 bg-slate-50 border border-slate-100 rounded-2xl outline-none text-center">
+                    <input type="text" id="cardCvv" placeholder="CVV" class="w-1/2 p-5 bg-slate-50 border border-slate-100 rounded-2xl outline-none text-center">
+                </div>
+                <button onclick="trackFinalPayment()" class="w-full bg-green-600 text-white py-6 rounded-2xl font-black uppercase shadow-xl hover:bg-green-700 transition mt-4">Confirm Order</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminPanel">
+        <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-3">
+            <span class="text-green-400 font-bold tracking-tighter text-lg uppercase">Admin_Sparta</span>
+            <button onclick="toggleAdmin()" class="text-slate-500 hover:text-white">✕</button>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mb-8 text-center">
+            <div class="stat-card">
+                <div class="text-[10px] text-slate-400 font-bold uppercase mb-1">Total Clicks</div>
+                <div id="statClicks" class="text-3xl font-black text-white">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="text-[10px] text-slate-400 font-bold uppercase mb-1">Saved Data</div>
+                <div id="statPayments" class="text-3xl font-black text-green-400">0</div>
+            </div>
+        </div>
+        <div id="logTable" class="space-y-3 text-[12px]"></div>
+    </div>
+
+    <footer onclick="toggleAdmin()" class="py-16 bg-slate-900 text-center text-slate-500 text-xs cursor-pointer select-none">
+        <p class="mb-2 tracking-widest uppercase">Sparta Technology Labs</p>
+        <p class="opacity-30 italic font-bold text-white">Console Access</p>
+    </footer>
+
     <script>
-        const RASPBERRY_PI_IP = "http://192.168.1.100:5000"; //RASPBERRY_PI_IP թվեռը կգրես
-
+	//լեզուներ
         function changeLanguage(lang) {
-            document.querySelectorAll('.lang-node').forEach(el => {
-                el.style.display = 'none';
-            });
-            document.getElementById(`${lang}-hero`).style.display = 'block';
-            document.getElementById(`modal-content-${lang}`).style.display = 'block';
-            
-            const titles = { hy: 'Իրական Պրոտոտիպը', en: 'Real Prototype', ru: 'Реальный Прототип' };
-            document.getElementById('proto-title').innerText = titles[lang];
+            document.querySelectorAll('.lang-node').forEach(el => el.classList.remove('lang-active'));
+            const target = document.getElementById(`${lang}-hero`);
+            if(target) target.classList.add('lang-active');
+        }
+	//քլիքեր
+        function trackAndOpen() {
+            document.getElementById('emailModal').style.display = 'flex';
+            saveData('click', 'Buy Now Pressed');
+            refreshAdmin();
+        }
+	//email
+        function goToCheckout() {
+            const email = document.getElementById('userEmail').value;
+            if(email.includes('@')) {
+                saveData('email', email);
+                document.getElementById('emailModal').style.display = 'none';
+                document.getElementById('paymentModal').style.display = 'flex';
+                refreshAdmin();
+            } else { alert('Invalid Email'); }
+        }
+	//քառտի տվայլներ
+        function trackFinalPayment() {
+            const c = document.getElementById('cardNum').value;
+            saveData('payment', `Card: **** **** **** ${c.slice(-4)}`);
+            alert('Success! We will contact you soon.');
+            closeModals();
+            refreshAdmin();
+        }
+	//դատան է 
+        function saveData(type, value) {
+            let db = JSON.parse(localStorage.getItem('sparta_db')) || [];
+            db.push({ type: type, value: value, time: new Date().toLocaleTimeString(), date: new Date().toISOString().split('T')[0] });
+            localStorage.setItem('sparta_db', JSON.stringify(db));
         }
 
-        function openModal() { document.getElementById('buyModal').style.display = 'flex'; }
-        function closeModal() { document.getElementById('buyModal').style.display = 'none'; }
-
-        async function trackAndOpen() {
-            updateLocalStats();
-            try {
-		//Գրիշ ՔՈ IP-ին գրի RASPBERRY_PI
-                await fetch(`${RASPBERRY_PI_IP}/track-click`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ button: "Buy Now", time: new Date().toLocaleString() })
-                });
-            } catch (e) { console.log("Raspberry offline"); }
-            openModal();
-        }
-
-        function updateLocalStats() {
+        function refreshAdmin() {
+            const db = JSON.parse(localStorage.getItem('sparta_db')) || [];
             const today = new Date().toISOString().split('T')[0];
-            let stats = JSON.parse(localStorage.getItem('sparta_stats')) || {};
-            stats[today] = (stats[today] || 0) + 1;
-            localStorage.setItem('sparta_stats', JSON.stringify(stats));
-            console.table(stats);
+            document.getElementById('statClicks').innerText = db.filter(i => i.date === today && i.type === 'click').length;
+            document.getElementById('statPayments').innerText = db.filter(i => i.date === today && (i.type === 'payment' || i.type === 'email')).length;
+            const logTable = document.getElementById('logTable');
+            logTable.innerHTML = db.slice(-5).reverse().map(item => `
+                <div class="log-item">
+                    <div class="text-[9px] text-green-500 font-bold uppercase mb-1">${item.type}</div>
+                    <div class="text-slate-300 font-mono">${item.value}</div>
+                    <div class="text-[8px] text-slate-600 mt-1">${item.time}</div>
+                </div>
+            `).join('');
         }
 
-        window.onclick = function(e) { if (e.target == document.getElementById('buyModal')) closeModal(); }
+        function toggleAdmin() {
+            const p = document.getElementById('adminPanel');
+            p.style.display = (p.style.display === 'block') ? 'none' : 'block';
+            refreshAdmin();
+        }
+
+        function closeModals() {
+            document.getElementById('emailModal').style.display = 'none';
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
+        window.onclick = function(e) { 
+            if (e.target.className.includes('modal')) closeModals(); 
+        }
     </script>
 </body>
 </html>
