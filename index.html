@@ -2,7 +2,7 @@
 <html lang="hy">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sparta | Smart Greenhouse</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -13,192 +13,190 @@
             border-bottom: 1px solid #e5e7eb; backdrop-filter: blur(10px);
         }
 
-        /* Ադապտիվ բաններ */
-        .hero-container { width: 100%; overflow: hidden; padding-top: 60px; } 
-        .hero-bg { 
-            width: 100%; 
-            height: 40vh; /* Հեռախոսով ավելի կարճ */
-            object-fit: cover; 
-            display: block; 
-        }
-        @media (min-width: 768px) {
-            .hero-bg { height: 70vh; } /* Համակարգչով մեծ */
-        }
-
-        /* Սլայդերի բարձրությունը հարմարեցված */
-        .slide img {
-            width: auto; max-width: 100%; 
-            height: 300px; /* Հեռախոսով */
-            object-fit: contain; 
-        }
-        @media (min-width: 768px) {
-            .slide img { height: 450px; } /* Համակարգչով */
-        }
-
         .modal { 
             display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; 
             background-color: rgba(0,0,0,0.85); backdrop-filter: blur(10px); align-items: center; justify-content: center;
         }
 
+        .hero-container { width: 100%; overflow: hidden; padding-top: 72px; padding-bottom: 20px; } 
+        .hero-bg { width: 100%; height: 70vh; object-fit: cover; display: block; }
+
+        .card-visual {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-radius: 15px; padding: 20px; color: white; margin-bottom: 20px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-official { 
+            width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; 
+            margin-bottom: 12px; outline: none; transition: border 0.3s;
+        }
+        .input-official:focus { border-color: #059669; }
+
+        .step-hidden { display: none; }
+
         #adminPanel { 
-            display: none; position: fixed; bottom: 10px; right: 10px; left: 10px; /* Հեռախոսով ամբողջ լայնությամբ */
-            background: #0f172a; color: #4ade80; border: 1px solid #334155; padding: 15px; 
-            border-radius: 12px; z-index: 3000; font-family: monospace; font-size: 10px;
+            display: none; position: fixed; bottom: 20px; right: 20px; background: #0f172a; 
+            color: #4ade80; border: 1px solid #334155; padding: 20px; border-radius: 15px; 
+            z-index: 3000; width: 350px; font-family: monospace; font-size: 11px;
         }
-        @media (min-width: 768px) {
-            #adminPanel { width: 350px; left: auto; }
-        }
+
+        .slider-container { position: relative; overflow: hidden; border-radius: 1rem; background: #f1f5f9; }
+        .slides { display: flex; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .slide { min-width: 100%; display: flex; justify-content: center; }
+        .slide img { width: auto; max-width: 100%; height: 450px; object-fit: contain; }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: white; padding: 10px; border-radius: 50%; cursor: pointer; z-index: 10; }
     </style>
 </head>
-<body class="bg-white text-slate-900 overflow-x-hidden">
+<body class="bg-white text-slate-900">
 
-    <header class="px-4 py-3 md:px-6 md:py-4 flex justify-between items-center shadow-sm">
-        <div class="flex items-center space-x-2">
-            <img src="logo.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10 object-contain">
-            <span class="text-xl md:text-2xl font-black uppercase tracking-tighter text-slate-800">Sparta</span>
+    <header class="px-6 py-4 flex justify-between items-center shadow-sm">
+        <div class="flex items-center space-x-3">
+            <img src="logo.png" alt="Sparta Logo" class="w-10 h-10 object-contain">
+            <span class="text-2xl font-black uppercase tracking-tighter text-slate-800">Sparta</span>
         </div>
-        <button id="nav-btn" onclick="openModal()" class="bg-slate-800 text-white px-5 py-2 rounded-full font-bold text-xs md:text-sm">Մուտք</button>
+        <button onclick="openModal()" class="bg-slate-800 text-white px-6 py-2 rounded-full font-bold text-sm">Մուտք</button>
     </header>
 
     <main>
         <section class="hero-container">
             <img src="hero-render.jpg" class="hero-bg" alt="Banner">
-            <div class="container mx-auto px-4 py-6 md:py-10 text-center">
-                <h1 class="text-2xl md:text-5xl font-black mb-4 italic leading-tight">Ամրագրեք հիմա՝ ստացեք <span class="text-green-600">25% զեղչ</span></h1>
+            <div class="container mx-auto px-6 py-10 text-center">
+                <h1 class="text-3xl md:text-5xl font-black mb-4 italic">Ամրագրեք հիմա՝ ստացեք <span class="text-green-600">25% զեղչ</span></h1>
             </div>
         </section>
 
-        <section class="py-8 md:py-12 container mx-auto px-4 max-w-6xl">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start">
-                
-                <div class="relative overflow-hidden rounded-2xl bg-slate-50 shadow-lg border border-slate-100">
-                    <div class="flex transition-transform duration-500 ease-in-out" id="slider">
-                        <div class="min-w-full flex justify-center"><img src="prototype-1.jpg" class="slide-img"></div>
-                        <div class="min-w-full flex justify-center"><img src="prototype-2.jpg" class="slide-img"></div>
+        <section class="py-12 container mx-auto px-6 max-w-6xl">
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <div class="slider-container shadow-xl">
+                    <div class="slides" id="slider">
+                        <div class="slide"><img src="prototype-1.jpg"></div>
+                        <div class="slide"><img src="prototype-2.jpg"></div>
                     </div>
-                    <button class="absolute top-1/2 left-2 -translate-y-1/2 bg-white/90 p-2 rounded-full shadow" onclick="moveSlide(-1)"><i class="fas fa-chevron-left text-xs"></i></button>
-                    <button class="absolute top-1/2 right-2 -translate-y-1/2 bg-white/90 p-2 rounded-full shadow" onclick="moveSlide(1)"><i class="fas fa-chevron-right text-xs"></i></button>
+                    <button class="slider-btn left-[10px]" onclick="moveSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn right-[10px]" onclick="moveSlide(1)"><i class="fas fa-chevron-right"></i></button>
                 </div>
 
                 <div class="flex flex-col">
-                    <h1 class="text-xl md:text-2xl font-bold mb-6 leading-snug">Smart Greenhouse: Մոդուլային բոքսային ջերմոցներ</h1>
-                    <div class="mb-6 overflow-x-auto">
-                        <table class="w-full text-sm">
-                            <tr class="border-b"><td class="py-3 font-bold w-1/3">Բրենդ</td><td class="py-3 text-slate-600">Sparta Project</td></tr>
+                    <h1 class="text-2xl font-bold mb-8">Smart Greenhouse: Մոդուլային բոքսային ջերմոցներ</h1>
+                    <div class="mb-8">
+                        <table class="w-full">
+                            <tr class="border-b"><td class="py-3 font-bold">Բրենդ</td><td class="py-3 text-slate-600">Sparta Project</td></tr>
+                            <tr class="border-b"><td class="py-3 font-bold">Տեսակ</td><td class="py-3 text-slate-600">Մոդուլային բոքս</td></tr>
                             <tr class="border-b"><td class="py-3 font-bold">Server</td><td class="py-3 text-slate-600">Local (No Cloud)</td></tr>
-                            <tr class="border-b"><td class="py-3 font-bold">Ծագում</td><td class="py-3 text-slate-600">Հայաստան</td></tr>
                         </table>
                     </div>
-                    <div class="border rounded-3xl p-6 md:p-8 bg-slate-50 text-center shadow-lg">
-                        <div class="text-3xl md:text-4xl font-light mb-4">$10.00</div>
-                        <button onclick="openModal()" class="w-full bg-amber-400 hover:bg-amber-500 py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-md active:scale-95 transition">Ամրագրել հիմա</button>
+                    <div class="border rounded-3xl p-8 bg-slate-50 text-center shadow-lg">
+                        <div class="text-4xl font-light mb-4">$10.00</div>
+                        <button onclick="openModal()" class="w-full bg-amber-400 hover:bg-amber-500 py-4 rounded-2xl font-black text-sm uppercase">Ամրագրել հիմա</button>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <div id="paymentModal" class="modal px-4">
-        <div class="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full relative shadow-2xl">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 p-2"><i class="fas fa-times text-xl"></i></button>
+    <div id="paymentModal" class="modal">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full relative shadow-2xl mx-4">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400"><i class="fas fa-times"></i></button>
             
             <div id="step-email">
-                <h2 class="text-xl md:text-2xl font-black mb-2">Մուտք</h2>
+                <h2 class="text-2xl font-black mb-2">Մուտք</h2>
                 <p class="text-sm text-slate-500 mb-6">Մուտքագրեք Ձեր Gmail-ը</p>
-                <input type="email" id="userEmail" placeholder="example@gmail.com" class="w-full p-4 border rounded-xl mb-4 outline-none focus:border-green-600">
+                <input type="email" id="userEmail" placeholder="example@gmail.com" class="input-official">
                 <button onclick="nextStep()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold">Շարունակել</button>
             </div>
 
-            <div id="step-card" class="hidden">
-                <h2 class="text-xl font-black mb-4">Վճարում</h2>
-                <div class="bg-slate-800 rounded-xl p-4 text-white mb-4 shadow-inner">
-                    <div id="cardDisplay" class="text-md tracking-[3px] mb-4">**** **** **** ****</div>
-                    <div class="flex justify-between text-[10px] opacity-60">
-                        <span id="expiryDisplay">MM/YY</span>
+            <div id="step-card" class="step-hidden">
+                <h2 class="text-2xl font-black mb-4">Վճարում</h2>
+                
+                <div class="card-visual">
+                    <div class="flex justify-between items-start mb-8">
+                        <i class="fas fa-microchip text-3xl text-amber-200"></i>
+                        <i class="fab fa-cc-visa text-2xl"></i>
+                    </div>
+                    <div id="cardDisplay" class="text-lg tracking-[4px] mb-4">**** **** **** ****</div>
+                    <div class="flex justify-between text-[10px] uppercase opacity-70">
+                        <span>Card Holder</span>
+                        <span>Expires</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
                         <span>SPARTA USER</span>
+                        <span id="expiryDisplay">MM/YY</span>
                     </div>
                 </div>
-                <input type="text" id="cardNum" maxlength="19" placeholder="Քարտի համարը" class="w-full p-3 border rounded-lg mb-3 outline-none" oninput="updateCardDisplay(this)">
-                <div class="flex gap-2 mb-4">
-                    <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" class="w-1/2 p-3 border rounded-lg outline-none" oninput="formatExpiry(this)">
-                    <input type="password" placeholder="CVC" maxlength="3" class="w-1/2 p-3 border rounded-lg outline-none">
+
+                <input type="text" id="cardNum" maxlength="19" placeholder="Քարտի համարը" class="input-official" oninput="updateCardDisplay(this)">
+                <div class="flex gap-4 mb-4">
+                    <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" class="w-1/2 input-official" oninput="formatExpiry(this)">
+                    <input type="password" placeholder="CVC" maxlength="3" class="w-1/2 input-official">
                 </div>
-                <button onclick="finalPay()" class="w-full bg-green-600 text-white py-4 rounded-xl font-bold">Վճարել $10.00</button>
+
+                <div class="mb-6 flex items-start space-x-2">
+                    <input type="checkbox" id="agree" class="mt-1">
+                    <label for="agree" class="text-[11px] text-slate-600">Համաձայն եմ պայմաններին և հաստատում եմ $10.00 վճարը։</label>
+                </div>
+
+                <button onclick="finalPay()" class="w-full bg-green-600 text-white py-4 rounded-xl font-bold shadow-lg">Վճարել $10.00</button>
             </div>
         </div>
     </div>
 
     <div id="adminPanel">
-        <div class="flex justify-between border-b border-slate-700 mb-2 pb-1">
-            <span>SPARTA_TERMINAL</span>
+        <div class="flex justify-between border-b border-slate-700 mb-2 pb-1 text-[9px] uppercase font-bold">
+            <span>Terminal - Sparta R&D</span>
             <button onclick="toggleAdmin()">✕</button>
         </div>
-        <div id="consoleLogs" class="max-h-32 overflow-y-auto">
-            > Mobile optimized build...
+        <div id="consoleLogs" class="max-h-40 overflow-y-auto">
+            > System Ready...
         </div>
     </div>
 
-    <footer class="py-8 bg-slate-900 text-white text-center">
+    <footer class="py-12 bg-slate-900 text-white text-center">
         <p class="text-[10px] tracking-widest uppercase opacity-60">© 2026 SPARTA PROJECT</p>
-        <span onclick="toggleAdmin()" class="text-[9px] text-slate-700 cursor-pointer mt-2 inline-block underline">Console</span>
+        <span onclick="toggleAdmin()" class="text-[9px] text-slate-700 cursor-pointer mt-2 inline-block">Admin Console</span>
     </footer>
 
     <script>
-        let currentSlide = 0;
-        const slider = document.getElementById('slider');
-        
-        // Ավտոմատ մուտքի ստուգում
-        window.onload = function() {
-            const savedEmail = localStorage.getItem('spartaUserEmail');
-            if (savedEmail) {
-                document.getElementById('nav-btn').innerText = 'Իմ հաշիվը';
-                logConsole('Logged: ' + savedEmail);
-            }
-        };
-
         function moveSlide(step) {
+            const slider = document.getElementById('slider');
             currentSlide = (currentSlide + step + 2) % 2;
             slider.style.transform = `translateX(-${currentSlide * 100}%)`;
         }
+        let currentSlide = 0;
 
-        function openModal() {
-            document.getElementById('paymentModal').style.display = 'flex';
-            const savedEmail = localStorage.getItem('spartaUserEmail');
-            if(savedEmail) {
-                document.getElementById('step-email').classList.add('hidden');
-                document.getElementById('step-card').classList.remove('hidden');
-            }
-        }
-
+        function openModal() { document.getElementById('paymentModal').style.display = 'flex'; logConsole('Modal Open'); }
         function closeModal() { document.getElementById('paymentModal').style.display = 'none'; }
 
         function nextStep() {
             const email = document.getElementById('userEmail').value;
             if(email.includes('@')) {
-                localStorage.setItem('spartaUserEmail', email);
-                document.getElementById('step-email').classList.add('hidden');
-                document.getElementById('step-card').classList.remove('hidden');
-                document.getElementById('nav-btn').innerText = 'Իմ հաշիվը';
-                logConsole('Login: ' + email);
+                document.getElementById('step-email').classList.add('step-hidden');
+                document.getElementById('step-card').classList.remove('step-hidden');
+                logConsole('Email: ' + email);
             } else { alert('Մուտքագրեք Gmail'); }
         }
 
+        // Քարտի համարի ֆորմատ
         function updateCardDisplay(input) {
             let val = input.value.replace(/\s/g, '').replace(/[^0-9]/g, '');
             let formatted = val.match(/.{1,4}/g)?.join(' ') || '**** **** **** ****';
             input.value = formatted.substring(0, 19);
-            document.getElementById('cardDisplay').innerText = input.value;
+            document.getElementById('cardDisplay').innerText = input.value || '**** **** **** ****';
         }
 
+        // Ավտոմատ / ամսաթվի համար
         function formatExpiry(input) {
-            let val = input.value.replace(/\D/g, '');
+            let val = input.value.replace(/\D/g, ''); // Հեռացնել ոչ թվային նշանները
             if (val.length >= 2) {
                 input.value = val.substring(0, 2) + '/' + val.substring(2, 4);
-            } else { input.value = val; }
+            } else {
+                input.value = val;
+            }
             document.getElementById('expiryDisplay').innerText = input.value || 'MM/YY';
         }
 
         function finalPay() {
+            if(!document.getElementById('agree').checked) { alert('Համաձայնվեք պայմաններին'); return; }
             logConsole('Payment triggered');
             alert('Վճարման սխալ: Մենք կկապվենք Ձեզ հետ Gmail-ով:');
             closeModal();
@@ -206,7 +204,7 @@
 
         function logConsole(msg) {
             const logs = document.getElementById('consoleLogs');
-            logs.innerHTML += `<br>> ${msg}`;
+            logs.innerHTML += `<br>> ${new Date().toLocaleTimeString()}: ${msg}`;
             logs.scrollTop = logs.scrollHeight;
         }
 
@@ -214,8 +212,6 @@
             const p = document.getElementById('adminPanel');
             p.style.display = (p.style.display === 'block') ? 'none' : 'block';
         }
-
-        window.onclick = function(e) { if (e.target == document.getElementById('paymentModal')) closeModal(); }
     </script>
 </body>
 </html>
