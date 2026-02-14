@@ -7,35 +7,76 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        header { 
-        position: fixed; top: 0; left: 0; right: 0; z-index: 1000; 
-        background-color: rgba(255, 255, 255, 0.95); 
-        border-bottom: 1px solid #e5e7eb; 
-        backdrop-filter: blur(10px); 
-    }
+#paymentModal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+}
+
+        header {
+    	position: absolute; /* Կամ fixed */
+    	top: 0;
+    	left: 0;
+    	right: 0;
+    	width: 100%;
+    	z-index: 99999 !important; /* Ամենաբարձր շերտը */
+    	background: white; /* Համոզվիր, որ ֆոնը սպիտակ է */
+    	display: flex !important; /* Ստիպողաբար ցույց տալ */
+}
+
+body {
+    padding-top: 70px; 
+}
+
+@media (min-width: 768px) {
+    body { padding-top: 85px; } /* Համակարգչի համար մի փոքր ավել */
+}
+
         .modal > div {
         width: 95%; /* Հեռախոսի վրա համարյա ամբողջ լայնությամբ */
         max-width: 450px;
         max-height: 90vh;
         overflow-y: auto;
     }
-        .hero-container { width: 100%; overflow: hidden; padding-top: 72px; padding-bottom: 20px; } 
-        .hero-bg { 
-        width: 100%; 
-        height: 45vh;
-        object-fit: cover; 
-        display: block; 
-    }
-        @media (min-width: 768px) { 
-        .hero-bg { height: 85vh; }
-    }
+        .hero-container { 
+    width: 100%; 
+    margin-top: 0; /* Հեռացնում ենք բոլոր արտաքին արանքները */
+    position: relative;
+}
 	.hero-title {
         font-size: 1.5rem;
     }
-    	@media (min-width: 768px) {
-        .hero-title { font-size: 3rem; } /* Համակարգչի համար */
-    }
-        .card-visual { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border-radius: 18px; padding: 22px; color: white; margin-bottom: 20px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4); }
+        .card-visual { 
+    	background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important; 
+    	border-radius: 18px; 
+    	padding: 22px; 
+    	color: #ffffff !important; /* Ստիպողաբար սպիտակ գույն */
+    	margin-bottom: 20px; 
+    	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4); 
+    	position: relative;
+    	min-height: 160px; /* Ապահովում ենք բարձրությունը */
+}
+	.card-visual span, 
+	.card-visual div {
+	    color: #ffffff !important;
+	    text-shadow: 0 1px 2px rgba(0,0,0,0.3); /* Թեթև ստվեր՝ ավելի լավ երևալու համար */
+}
+	#cardDisplay {
+   	 font-size: 1.25rem;
+    	 letter-spacing: 3px;
+   	 font-family: monospace;
+   	 display: block;
+    	 margin: 20px 0;
+   	 text-align: center;
+}	
         .input-official { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 12px; outline: none; color: #0f172a; }
         .step-hidden { display: none; }
         .slider-container { position: relative; overflow: hidden; border-radius: 1rem; background: #f1f5f9; }
@@ -53,25 +94,20 @@
 </head>
 <body class="bg-white text-slate-900 overflow-x-hidden">
 
-    <header class="px-4 md:px-6 py-3 md:py-4 flex justify-between items-center shadow-sm">
+    <header class="px-4 md:px-6 py-3 md:py-4 flex justify-between items-center shadow-sm bg-white fixed top-0 left-0 right-0 z-[9999]">
     <div class="flex items-center space-x-2">
-        <img src="logo.png" alt="Sparta Logo" class="w-8 h-8 md:w-10 md:h-10 object-contain">
-        <span class="text-xl md:text-2xl font-black uppercase tracking-tighter text-slate-800">Sparta</span>
+        <img src="logo.png" class="w-8 h-8 md:w-10 md:h-10">
+        <span class="text-xl md:text-2xl font-black uppercase text-slate-800">Sparta</span>
     </div>
 
     <div class="flex items-center space-x-2 md:space-x-4">
         <div class="flex space-x-1 md:space-x-2 border-r pr-2 border-slate-200 uppercase text-[10px] md:text-xs font-bold">
-            <span id="lang-hy" onclick="changeLang('hy')" class="lang-btn lang-active cursor-pointer p-1">HY</span>
-            <span id="lang-en" onclick="changeLang('en')" class="lang-btn cursor-pointer p-1">EN</span>
-            <span id="lang-ru" onclick="changeLang('ru')" class="lang-btn cursor-pointer p-1">RU</span>
-        </div>
+    <span id="lang-hy" onclick="changeLang('hy')" class="lang-btn cursor-pointer p-1">HY</span>
+    <span id="lang-en" onclick="changeLang('en')" class="lang-btn cursor-pointer p-1">EN</span>
+    <span id="lang-ru" onclick="changeLang('ru')" class="lang-btn cursor-pointer p-1">RU</span>
+</div>
         
-        <div class="relative cursor-pointer mr-1 md:mr-2">
-            <i class="fas fa-shopping-cart text-slate-700 text-base md:text-lg"></i>
-            <div id="cart-count" class="absolute -top-1.5 -right-2 bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</div>
-        </div>
-        
-        <button id="nav-btn" onclick="openModal()" class="px-3 py-1.5 md:px-5 md:py-2 rounded-full font-bold text-[10px] md:text-xs uppercase bg-[#10b981] text-white shadow-md transition active:scale-95">
+        <button onclick="openModal()" class="cursor-pointer px-3 py-1.5 md:px-5 md:py-2 rounded-full font-bold text-[10px] md:text-xs uppercase bg-[#10b981] text-white shadow-md hover:bg-[#059669] transition-all" style="position: relative; z-index: 10001;">
             <span data-key="nav_login">Մուտք</span>
         </button>
     </div>
@@ -144,7 +180,7 @@
         </div>
     </footer>
 
-    <div id="paymentModal" class="modal px-4">
+    <div id="paymentModal" class="px-4">
         <div class="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full relative shadow-2xl overflow-y-auto max-h-[90vh]">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-900"><i class="fas fa-times text-xl"></i></button>
             
@@ -158,24 +194,27 @@
             <div id="step-card" class="step-hidden">
                 <h2 class="text-xl font-black mb-4 text-slate-900" data-key="modal_pay">Վճարում</h2>
                 
-                <div class="card-visual mb-6 relative overflow-hidden">
-                    <div class="flex justify-between items-start mb-8">
-                        <i class="fas fa-microchip text-3xl text-amber-200"></i>
-                        <div id="card-brand-icon"><i class="fab fa-cc-visa text-3xl"></i></div>
-                    </div>
-                    <div id="cardDisplay" class="text-xl tracking-[3px] mb-6 font-mono text-center">**** **** **** ****</div>
-                    <div class="flex justify-between items-end">
-                        <div class="flex flex-col">
-                            <span class="text-[8px] uppercase opacity-60">Card Holder</span>
-                            <span id="nameDisplay" class="text-xs font-bold tracking-widest uppercase truncate w-32">NAME SURNAME</span>
-                        </div>
-                        <div class="flex flex-col items-end">
-                            <span class="text-[8px] uppercase opacity-60">Expires</span>
-                            <span id="expiryDisplay" class="text-xs font-bold font-mono">MM/YY</span>
-                        </div>
-                    </div>
-                </div>
+                <div class="card-visual">
+    <div class="flex justify-between items-start mb-4">
+        <i class="fas fa-microchip text-3xl text-amber-200"></i>
+        <div id="card-brand-icon">
+            <i class="fab fa-cc-visa text-3xl text-white"></i>
+        </div>
+    </div>
 
+    <div id="cardDisplay" class="font-mono text-white">**** **** **** ****</div>
+
+    <div class="flex justify-between items-end mt-4">
+        <div class="flex flex-col">
+            <span class="text-[8px] uppercase opacity-70">Card Holder</span>
+            <span id="nameDisplay" class="text-xs font-bold tracking-widest uppercase truncate w-32">NAME SURNAME</span>
+        </div>
+        <div class="flex flex-col items-end">
+            <span class="text-[8px] uppercase opacity-70">Expires</span>
+            <span id="expiryDisplay" class="text-xs font-bold font-mono">MM/YY</span>
+        </div>
+    </div>
+</div>
                 <div class="space-y-3">
                     <input type="text" id="cardHolder" data-placeholder="ph_name" class="input-official uppercase" oninput="updateName(this)">
                     <input type="text" id="cardNum" maxlength="19" data-placeholder="ph_number" class="input-official font-mono" oninput="updateCardDisplay(this)">
@@ -185,19 +224,31 @@
                     </div>
                 </div>
 
-                <div class="mt-6 space-y-4">
+                <div class="mt-4 space-y-3">
     <label class="flex items-start gap-3 cursor-pointer">
         <input type="checkbox" class="agreement-check mt-1 accent-green-600" onchange="checkAgreements()">
-        <span class="text-[10px] text-slate-600 leading-tight" data-key="agree_pci"></span>
+        <span class="text-[10px] text-slate-600 leading-tight" data-key="agree_pci">
+            Ես համաձայն եմ PCI DSS միջազգային ստանդարտներով տվյալների անվտանգ մշակմանը:
+        </span>
     </label>
     <label class="flex items-start gap-3 cursor-pointer">
         <input type="checkbox" class="agreement-check mt-1 accent-green-600" onchange="checkAgreements()">
-        <span class="text-[10px] text-slate-600 leading-tight" data-key="agree_sparta"></span>
+        <span class="text-[10px] text-slate-600 leading-tight" data-key="agree_sparta">
+            Հաստատում եմ $1.00 վճարը 10% զեղչ ստանալու համար:
+        </span>
     </label>
     <label class="flex items-start gap-3 cursor-pointer">
         <input type="checkbox" class="agreement-check mt-1 accent-green-600" onchange="checkAgreements()">
-        <span class="text-[10px] text-slate-600 leading-tight" data-key="agree_iso"></span>
+        <span class="text-[10px] text-slate-600 leading-tight" data-key="agree_iso">
+            Ես համաձայն եմ ISO տեղեկատվական անվտանգության նորմերի մշակմանը:
+        </span>
     </label>
+</div>
+
+<div class="mt-4 p-3 bg-slate-50 border border-slate-100 rounded-xl">
+    <p class="text-[10px] text-slate-500 italic leading-relaxed" data-key="refund_info">
+        Եթե ծրագիրը չիրականացվի, մենք երաշխավորում ենք վճարի ամբողջական վերադարձը:
+    </p>
 </div>
 
 <div class="mt-6 p-4 bg-slate-50 border border-slate-100 rounded-xl">
@@ -288,16 +339,26 @@
     	currentLang = l; 
     	localStorage.setItem('spartaLang', l);
   	
-  	document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('lang-active'));
-   	document.getElementById('lang-' + l).classList.add('lang-active');
+  	document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('lang-active');
+    });
 
+	const activeBtn = document.getElementById('lang-' + l);
+    if (activeBtn) {
+        activeBtn.classList.add('lang-active');
+    }
+    
     	if(translations[l].hero_img) {
         document.getElementById('hero-img').src = translations[l].hero_img;
     }
 
-    document.querySelectorAll('[data-key]').forEach(e => { 
-        const k = e.getAttribute('data-key'); 
-        if (translations[l][k]) e.innerHTML = translations[l][k]; 
+    document.querySelectorAll('[data-key]').forEach(e => {
+        const k = e.getAttribute('data-key');
+        if (translations[l][k]) e.innerHTML = translations[l][k];
+    });
+	document.querySelectorAll('[data-placeholder]').forEach(e => {
+        const k = e.getAttribute('data-placeholder');
+        if (translations[l][k]) e.placeholder = translations[l][k];
     });
 
     document.querySelectorAll('[data-placeholder]').forEach(e => { 
@@ -319,15 +380,22 @@
         function addToCart() { cartCount++; document.getElementById('cart-count').innerText = cartCount; alert(translations[currentLang].alert_cart); }
 
 	function openModal() {
+	const modal = document.getElementById('paymentModal');
+    	if (!modal) {
+        	console.error("Modal not found!");
+        	return;
+    }
     	const inputs = document.querySelectorAll('.input-official');
     	inputs.forEach(input => input.value = '');
     	const checkboxes = document.querySelectorAll('.agreement-check');
     	checkboxes.forEach(c => c.checked = false);
     	const payBtn = document.getElementById('pay-btn');
-    	if(payBtn) {
+    	if (payBtn) {
         payBtn.disabled = true;
         payBtn.classList.add('opacity-50', 'cursor-not-allowed');
     }
+    	document.querySelectorAll('.input-official').forEach(i => i.value = '');
+    	document.querySelectorAll('.agreement-check').forEach(c => c.checked = false);
     	document.getElementById('cardDisplay').innerText = "**** **** **** ****";
     	document.getElementById('nameDisplay').innerText = "NAME SURNAME";
     	document.getElementById('expiryDisplay').innerText = "MM/YY";
@@ -335,6 +403,7 @@
     	document.getElementById('step-email').classList.remove('step-hidden');
     	document.getElementById('step-card').classList.add('step-hidden');
     	document.getElementById('paymentModal').style.display = 'flex';
+	modal.style.display = 'flex';
 }
 	function closeModal() {
     document.getElementById('paymentModal').style.display = 'none';
