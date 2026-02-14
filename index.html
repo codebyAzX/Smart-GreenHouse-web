@@ -7,12 +7,35 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background-color: rgba(255, 255, 255, 0.95); border-bottom: 1px solid #e5e7eb; backdrop-filter: blur(10px); }
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(10px); align-items: center; justify-content: center; }
+        header { 
+        position: fixed; top: 0; left: 0; right: 0; z-index: 1000; 
+        background-color: rgba(255, 255, 255, 0.95); 
+        border-bottom: 1px solid #e5e7eb; 
+        backdrop-filter: blur(10px); 
+    }
+        .modal > div {
+        width: 95%; /* Հեռախոսի վրա համարյա ամբողջ լայնությամբ */
+        max-width: 450px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
         .hero-container { width: 100%; overflow: hidden; padding-top: 72px; padding-bottom: 20px; } 
-        .hero-bg { width: 100%; height: 40vh; object-fit: cover; display: block; }
-        @media (min-width: 768px) { .hero-bg { height: 70vh; } }
-        .card-visual { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border-radius: 15px; padding: 20px; color: white; margin-bottom: 20px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); }
+        .hero-bg { 
+        width: 100%; 
+        height: 45vh;
+        object-fit: cover; 
+        display: block; 
+    }
+        @media (min-width: 768px) { 
+        .hero-bg { height: 85vh; }
+    }
+	.hero-title {
+        font-size: 1.5rem;
+    }
+    	@media (min-width: 768px) {
+        .hero-title { font-size: 3rem; } /* Համակարգչի համար */
+    }
+        .card-visual { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border-radius: 18px; padding: 22px; color: white; margin-bottom: 20px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4); }
         .input-official { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 12px; outline: none; color: #0f172a; }
         .step-hidden { display: none; }
         .slider-container { position: relative; overflow: hidden; border-radius: 1rem; background: #f1f5f9; }
@@ -30,28 +53,33 @@
 </head>
 <body class="bg-white text-slate-900 overflow-x-hidden">
 
-    <header class="px-6 py-4 flex justify-between items-center shadow-sm">
-        <div class="flex items-center space-x-3">
-            <img src="logo.png" alt="Sparta Logo" class="w-10 h-10 object-contain">
-            <span class="text-2xl font-black uppercase tracking-tighter text-slate-800">Sparta</span>
+    <header class="px-4 md:px-6 py-3 md:py-4 flex justify-between items-center shadow-sm">
+    <div class="flex items-center space-x-2">
+        <img src="logo.png" alt="Sparta Logo" class="w-8 h-8 md:w-10 md:h-10 object-contain">
+        <span class="text-xl md:text-2xl font-black uppercase tracking-tighter text-slate-800">Sparta</span>
+    </div>
+
+    <div class="flex items-center space-x-2 md:space-x-4">
+        <div class="flex space-x-1 md:space-x-2 border-r pr-2 border-slate-200 uppercase text-[10px] md:text-xs font-bold">
+            <span id="lang-hy" onclick="changeLang('hy')" class="lang-btn lang-active cursor-pointer p-1">HY</span>
+            <span id="lang-en" onclick="changeLang('en')" class="lang-btn cursor-pointer p-1">EN</span>
+            <span id="lang-ru" onclick="changeLang('ru')" class="lang-btn cursor-pointer p-1">RU</span>
         </div>
-        <div class="flex items-center space-x-3">
-            <div class="flex space-x-2 border-r pr-3 border-slate-200 uppercase">
-                <span id="lang-hy" onclick="changeLang('hy')" class="lang-btn lang-active">HY</span>
-                <span id="lang-en" onclick="changeLang('en')" class="lang-btn">EN</span>
-                <span id="lang-ru" onclick="changeLang('ru')" class="lang-btn">RU</span>
-            </div>
-            <div class="relative cursor-pointer mr-2">
-                <i class="fas fa-shopping-cart text-slate-700 text-lg"></i>
-                <div id="cart-count">0</div>
-            </div>
-            <button id="nav-btn" onclick="openModal()" class="px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider shadow-md" data-key="nav_login">Մուտք</button>
+        
+        <div class="relative cursor-pointer mr-1 md:mr-2">
+            <i class="fas fa-shopping-cart text-slate-700 text-base md:text-lg"></i>
+            <div id="cart-count" class="absolute -top-1.5 -right-2 bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</div>
         </div>
-    </header>
+        
+        <button id="nav-btn" onclick="openModal()" class="px-3 py-1.5 md:px-5 md:py-2 rounded-full font-bold text-[10px] md:text-xs uppercase bg-[#10b981] text-white shadow-md transition active:scale-95">
+            <span data-key="nav_login">Մուտք</span>
+        </button>
+    </div>
+</header>
 
     <main>
         <section class="hero-container">
-            <img src="hero-render.jpg" class="hero-bg" alt="Banner">
+            <img src="hero-render.jpg" class="hero-bg" alt="Banner" id="hero-img">
             <div class="container mx-auto px-6 py-10 text-center">
                 <h1 class="text-3xl md:text-5xl font-black mb-4 italic px-4 text-slate-900" data-key="hero_title">Ամրագրեք հիմա՝ ստացեք <span class="text-green-600">10% զեղչ</span></h1>
             </div>
@@ -158,19 +186,47 @@
                 </div>
 
                 <div class="mt-6 space-y-4">
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-green-600" required>
-                        <span class="text-[10px] text-slate-600 leading-tight" data-key="agree_pci"></span>
-                    </label>
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-green-600" required>
-                        <span class="text-[10px] text-slate-600 leading-tight" data-key="agree_sparta"></span>
-                    </label>
-                </div>
+    <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" class="agreement-check mt-1 accent-green-600" onchange="checkAgreements()">
+        <span class="text-[10px] text-slate-600 leading-tight" data-key="agree_pci"></span>
+    </label>
+    <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" class="agreement-check mt-1 accent-green-600" onchange="checkAgreements()">
+        <span class="text-[10px] text-slate-600 leading-tight" data-key="agree_sparta"></span>
+    </label>
+    <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" class="agreement-check mt-1 accent-green-600" onchange="checkAgreements()">
+        <span class="text-[10px] text-slate-600 leading-tight" data-key="agree_iso"></span>
+    </label>
+</div>
 
-                <button onclick="finalPay()" class="w-full bg-green-600 text-white py-4 rounded-xl font-bold mt-6 hover:bg-green-700 transition active:scale-95 shadow-md">
-                    <span data-key="btn_pay">Վճարել</span> $1.00
-                </button>
+<div class="mt-6 p-4 bg-slate-50 border border-slate-100 rounded-xl">
+    <p class="text-[10px] text-slate-500 italic leading-relaxed" data-key="refund_info"></p>
+</div>
+
+<button id="pay-btn" onclick="finalPay()" disabled class="w-full bg-green-600 text-white py-4 rounded-xl font-bold mt-6 opacity-50 cursor-not-allowed transition active:scale-95 shadow-md">
+    <span data-key="btn_pay">Վճարել</span> $1.00
+</button>
+
+<script>
+    // Այս ֆունկցիան ավելացրու քո գոյություն ունեցող <script>-ի մեջ
+    function checkAgreements() {
+        const checkboxes = document.querySelectorAll('.agreement-check');
+        const payBtn = document.getElementById('pay-btn');
+        // Ստուգում ենք՝ արդյոք բոլորը նշված են
+        const allChecked = Array.from(checkboxes).every(c => c.checked);
+        
+        if (allChecked) {
+            payBtn.disabled = false;
+            payBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        } else {
+            payBtn.disabled = true;
+            payBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+    }
+
+    // Մյուս բոլոր ֆունկցիաները (changeLang, moveSlide, finalPay և այլն) թող նույնությամբ
+</script>
             </div>
         </div>
     </div>
@@ -178,6 +234,7 @@
     <script>
         const translations = {
             hy: { 
+		hero_img: "hero-hy.jpg",
                 nav_login: "Մուտք", hero_title: 'Ամրագրեք հիմա՝ ստացեք <span class="text-green-600">10% զեղչ</span>', 
                 prod_title: "Smart Greenhouse: Մոդուլային բոքսային ջերմոցներ", specs_header: "Տեխնիկական պարամետրեր",
                 spec_brand: "Բրենդ", spec_type: "Տեսակ", spec_type_val: "Մոդուլային ջերմոց", spec_ctrl: "Վերահսկում", spec_ctrl_val: "Ավտոմատացված / Wi-Fi",
@@ -188,9 +245,12 @@
                 ph_name: "ՔԱՐՏԱՏԻՐՈՋ ԱՆՈՒՆԸ", ph_number: "ՔԱՐՏԻ ՀԱՄԱՐԸ",
                 agree_pci: "Ես համաձայն եմ PCI DSS միջազգային ստանդարտներով տվյալների անվտանգ մշակմանը:",
                 agree_sparta: "Հաստատում եմ $1.00 վճարը 10% զեղչ ստանալու համար՝ պրոյեկտի իրականացման ժամանակ:",
+                agree_iso: "Ես համաձայն եմ, որ իմ տվյալները մշակվեն և պահպանվեն տեղեկատվական անվտանգության միջազգային նորմերի համաձայն՝ ըստ <a href='https://www.iso.org/standards.html' target='_blank' class='text-blue-600 underline'>International Organization for Standardization (ISO)</a> ստանդարտների։",
+                refund_info: "Տեղեկատվություն. Եթե ծրագիրը չիրականացվի նախատեսված ժամկետներում, մենք երաշխավորում ենք կատարված ամրագրման վճարի ամբողջական վերադարձը Ձեր հաշվեհամարին:",
                 btn_pay: "Վճարել", alert_success: "Գործարքը մշակվում է...", alert_cart: "Ավելացվեց զամբյուղ"
             },
             en: { 
+		hero_img: "hero-en.jpg",
                 nav_login: "Login", hero_title: 'Reserve Now: Get <span class="text-green-600">10% OFF</span>', 
                 prod_title: "Smart Greenhouse: Modular Box Greenhouses", specs_header: "Technical Specifications",
                 spec_brand: "Brand", spec_type: "Type", spec_type_val: "Modular Greenhouse", spec_ctrl: "Control", spec_ctrl_val: "Automated / Wi-Fi",
@@ -201,9 +261,12 @@
                 ph_name: "CARDHOLDER NAME", ph_number: "CARD NUMBER",
                 agree_pci: "I agree to secure data processing under PCI DSS standards.",
                 agree_sparta: "I confirm $1.00 payment for 10% discount upon project realization.",
+                agree_iso: "I agree that my data will be processed and stored in accordance with international information security standards according to <a href='https://www.iso.org/standards.html' target='_blank' class='text-blue-600 underline'>International Organization for Standardization (ISO)</a>.",
+                refund_info: "Information: If the project is not realized within the planned timeframe, we guarantee a full refund of the reservation fee to your account.",
                 btn_pay: "Pay", alert_success: "Processing...", alert_cart: "Added to cart"
             },
             ru: { 
+		hero_img: "hero-ru.jpg",
                 nav_login: "Вход", hero_title: 'Забронируй сейчас: скидка <span class="text-green-600">10%</span>', 
                 prod_title: "Smart Greenhouse: Модульные бокс-теплицы", specs_header: "Технические параметры",
                 spec_brand: "Бренд", spec_type: "Тип", spec_type_val: "Модульная теплица", spec_ctrl: "Управление", spec_ctrl_val: "Автомат / Wi-Fi",
@@ -214,32 +277,69 @@
                 ph_name: "ИМЯ ВЛАДЕЛЬЦА КАРТЫ", ph_number: "НОМЕР КАРТЫ",
                 agree_pci: "Согласен на обработку данных по стандартам PCI DSS.",
                 agree_sparta: "Подтверждаю оплату $1.00 для получения 10% скидки.",
+                agree_iso: "Я согласен на обработку и хранение моих данных в соответствии с международными нормами информационной безопасности согласно стандартам <a href='https://www.iso.org/standards.html' target='_blank' class='text-blue-600 underline'>International Organization for Standardization (ISO)</a>.",
+                refund_info: "Информация: Если проект не будет реализован, мы гарантируем полный возврат суммы бронирования на ваш счет.",
                 btn_pay: "Оплатить", alert_success: "Обработка...", alert_cart: "Добавлено"
             }
         };
 
         let currentLang = localStorage.getItem('spartaLang') || 'hy';
         function changeLang(l) {
-            currentLang = l; localStorage.setItem('spartaLang', l);
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('lang-active'));
-            document.getElementById('lang-'+l).classList.add('lang-active');
-            document.querySelectorAll('[data-key]').forEach(e => { const k = e.getAttribute('data-key'); if (translations[l][k]) e.innerHTML = translations[l][k]; });
-            document.querySelectorAll('[data-placeholder]').forEach(e => { const k = e.getAttribute('data-placeholder'); if (translations[l][k]) e.placeholder = translations[l][k]; });
-        }
-        window.onload = () => changeLang(currentLang);
+    	currentLang = l; 
+    	localStorage.setItem('spartaLang', l);
+  	
+  	document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('lang-active'));
+   	document.getElementById('lang-' + l).classList.add('lang-active');
 
-        let currentSlide = 0;
-        function moveSlide(direction) {
-            const slider = document.getElementById('slider');
-            currentSlide = (currentSlide + direction + 2) % 2;
-            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-        }
+    	if(translations[l].hero_img) {
+        document.getElementById('hero-img').src = translations[l].hero_img;
+    }
+
+    document.querySelectorAll('[data-key]').forEach(e => { 
+        const k = e.getAttribute('data-key'); 
+        if (translations[l][k]) e.innerHTML = translations[l][k]; 
+    });
+
+    document.querySelectorAll('[data-placeholder]').forEach(e => { 
+        const k = e.getAttribute('data-placeholder'); 
+        if (translations[l][k]) e.placeholder = translations[l][k]; 
+    });
+}
+
+	window.onload = () => changeLang(currentLang);
+
+	let currentSlide = 0;
+	function moveSlide(direction) {
+    	const slider = document.getElementById('slider');
+    	currentSlide = (currentSlide + direction + 2) % 2;
+    	slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
 
         let cartCount = 0;
         function addToCart() { cartCount++; document.getElementById('cart-count').innerText = cartCount; alert(translations[currentLang].alert_cart); }
 
-        function openModal() { document.getElementById('paymentModal').style.display = 'flex'; }
-        function closeModal() { document.getElementById('paymentModal').style.display = 'none'; }
+	function openModal() {
+    	const inputs = document.querySelectorAll('.input-official');
+    	inputs.forEach(input => input.value = '');
+    	const checkboxes = document.querySelectorAll('.agreement-check');
+    	checkboxes.forEach(c => c.checked = false);
+    	const payBtn = document.getElementById('pay-btn');
+    	if(payBtn) {
+        payBtn.disabled = true;
+        payBtn.classList.add('opacity-50', 'cursor-not-allowed');
+    }
+    	document.getElementById('cardDisplay').innerText = "**** **** **** ****";
+    	document.getElementById('nameDisplay').innerText = "NAME SURNAME";
+    	document.getElementById('expiryDisplay').innerText = "MM/YY";
+    	document.getElementById('card-brand-icon').innerHTML = '<i class="fas fa-credit-card text-3xl"></i>';
+    	document.getElementById('step-email').classList.remove('step-hidden');
+    	document.getElementById('step-card').classList.add('step-hidden');
+    	document.getElementById('paymentModal').style.display = 'flex';
+}
+	function closeModal() {
+    document.getElementById('paymentModal').style.display = 'none';
+}
+
         function nextStep() { document.getElementById('step-email').classList.add('step-hidden'); document.getElementById('step-card').classList.remove('step-hidden'); }
         function updateName(i) { document.getElementById('nameDisplay').innerText = i.value.toUpperCase() || "NAME SURNAME"; }
         function updateCardDisplay(i) {
