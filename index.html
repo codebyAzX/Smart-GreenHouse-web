@@ -22,52 +22,76 @@
 }
 
         header {
-    	position: absolute; /* Կամ fixed */
+    	position: absolute;
     	top: 0;
     	left: 0;
     	right: 0;
     	width: 100%;
-    	z-index: 99999 !important; /* Ամենաբարձր շերտը */
-    	background: white; /* Համոզվիր, որ ֆոնը սպիտակ է */
-    	display: flex !important; /* Ստիպողաբար ցույց տալ */
+    	z-index: 99999 !important;
+    	background: white;
+    	display: flex !important;
 }
 
 body {
     padding-top: 70px; 
 }
 
+.hero-container { 
+    	width: 100% !important;
+   	margin-top: -10px !important;
+    	overflow: hidden;
+}
+
+.hero-bg {
+    	width: 100%;
+    	height: 65vh; 
+    	object-fit: cover;
+    	display: block;
+}
+
+.hero-title {
+        font-size: 1.5rem;
+    }
+
 @media (min-width: 768px) {
-    body { padding-top: 85px; } /* Համակարգչի համար մի փոքր ավել */
+    body { 
+        padding-top: 85px; 
+    }
+    .hero-container {
+        margin-top: 0px;
+    }
+    .hero-container .container {
+        padding-top: 60px !important; /* Իջեցնում է տեքստը հեռախոսի վրա */
+    }
+    .hero-bg {
+        height: 80vh !important;
+    }
+    .hero-title {
+        font-size: 2.5rem; /* Համակարգչի վրա վերնագիրը թող մեծ լինի */
+    }
 }
 
         .modal > div {
-        width: 95%; /* Հեռախոսի վրա համարյա ամբողջ լայնությամբ */
-        max-width: 450px;
-        max-height: 90vh;
-        overflow-y: auto;
-    }
-        .hero-container { 
-    width: 100%; 
-    margin-top: 0; /* Հեռացնում ենք բոլոր արտաքին արանքները */
-    position: relative;
+    	width: 95%;
+    	max-width: 450px;
+    	max-height: 90vh;
+    	overflow-y: auto;
 }
-	.hero-title {
-        font-size: 1.5rem;
-    }
+	
         .card-visual { 
     	background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important; 
     	border-radius: 18px; 
     	padding: 22px; 
-    	color: #ffffff !important; /* Ստիպողաբար սպիտակ գույն */
+    	color: #ffffff !important;
     	margin-bottom: 20px; 
     	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4); 
     	position: relative;
-    	min-height: 160px; /* Ապահովում ենք բարձրությունը */
+    	min-height: 160px;
 }
 	.card-visual span, 
 	.card-visual div {
 	    color: #ffffff !important;
-	    text-shadow: 0 1px 2px rgba(0,0,0,0.3); /* Թեթև ստվեր՝ ավելի լավ երևալու համար */
+	    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 	#cardDisplay {
    	 font-size: 1.25rem;
@@ -85,6 +109,10 @@ body {
         .slide img { width: auto; max-width: 100%; height: 300px; object-fit: contain; }
         @media (min-width: 768px) { .slide img { height: 450px; } }
         .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: white; padding: 10px; border-radius: 50%; cursor: pointer; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+	.hero-bg {
+        /* Համակարգչի վրա թող մնա ավելի մեծ կամ փոքրացրու ըստ ցանկության */
+        height: 60vh; 
+    }
         #cart-count { position: absolute; top: -5px; right: -8px; background: #ef4444; color: white; font-size: 10px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
         .lang-btn { font-size: 11px; font-weight: bold; color: #475569; cursor: pointer; padding: 2px 4px; transition: color 0.3s; }
         .lang-active { color: #10b981; border-bottom: 2px solid #10b981; }
@@ -116,9 +144,11 @@ body {
     <main>
         <section class="hero-container">
             <img src="hero-render.jpg" class="hero-bg" alt="Banner" id="hero-img">
-            <div class="container mx-auto px-6 py-10 text-center">
-                <h1 class="text-3xl md:text-5xl font-black mb-4 italic px-4 text-slate-900" data-key="hero_title">Ամրագրեք հիմա՝ ստացեք <span class="text-green-600">10% զեղչ</span></h1>
-            </div>
+            <div class="container mx-auto px-6 text-center">
+    <h1 class="text-3xl md:text-5xl font-black mb-4 italic px-4 text-slate-900 mt-10 md:mt-16" data-key="hero_title">
+        Ամրագրեք հիմա՝ ստացեք <span class="text-green-600">10% զեղչ</span>
+    </h1>
+</div>
         </section>
 
         <section class="py-12 container mx-auto px-6 max-w-6xl">
@@ -251,10 +281,6 @@ body {
     </p>
 </div>
 
-<div class="mt-6 p-4 bg-slate-50 border border-slate-100 rounded-xl">
-    <p class="text-[10px] text-slate-500 italic leading-relaxed" data-key="refund_info"></p>
-</div>
-
 <button id="pay-btn" onclick="finalPay()" disabled class="w-full bg-green-600 text-white py-4 rounded-xl font-bold mt-6 opacity-50 cursor-not-allowed transition active:scale-95 shadow-md">
     <span data-key="btn_pay">Վճարել</span> $1.00
 </button>
@@ -297,7 +323,7 @@ body {
                 agree_pci: "Ես համաձայն եմ PCI DSS միջազգային ստանդարտներով տվյալների անվտանգ մշակմանը:",
                 agree_sparta: "Հաստատում եմ $1.00 վճարը 10% զեղչ ստանալու համար՝ պրոյեկտի իրականացման ժամանակ:",
                 agree_iso: "Ես համաձայն եմ, որ իմ տվյալները մշակվեն և պահպանվեն տեղեկատվական անվտանգության միջազգային նորմերի համաձայն՝ ըստ <a href='https://www.iso.org/standards.html' target='_blank' class='text-blue-600 underline'>International Organization for Standardization (ISO)</a> ստանդարտների։",
-                refund_info: "Տեղեկատվություն. Եթե ծրագիրը չիրականացվի նախատեսված ժամկետներում, մենք երաշխավորում ենք կատարված ամրագրման վճարի ամբողջական վերադարձը Ձեր հաշվեհամարին:",
+                refund_info: "Տեղեկատվություն. Եթե ծրագիրը չիրականացվի, մենք երաշխավորում ենք կատարված ամրագրման վճարի ամբողջական վերադարձը Ձեր հաշվեհամարին:",
                 btn_pay: "Վճարել", alert_success: "Գործարքը մշակվում է...", alert_cart: "Ավելացվեց զամբյուղ"
             },
             en: { 
@@ -313,7 +339,7 @@ body {
                 agree_pci: "I agree to secure data processing under PCI DSS standards.",
                 agree_sparta: "I confirm $1.00 payment for 10% discount upon project realization.",
                 agree_iso: "I agree that my data will be processed and stored in accordance with international information security standards according to <a href='https://www.iso.org/standards.html' target='_blank' class='text-blue-600 underline'>International Organization for Standardization (ISO)</a>.",
-                refund_info: "Information: If the project is not realized within the planned timeframe, we guarantee a full refund of the reservation fee to your account.",
+                refund_info: "Information: If the project is not realized, we guarantee a full refund of the reservation fee to your account.",
                 btn_pay: "Pay", alert_success: "Processing...", alert_cart: "Added to cart"
             },
             ru: { 
