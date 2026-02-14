@@ -39,14 +39,14 @@ body {
 .hero-container { 
     	width: 100% !important;
     	position: relative !important;
-    	margin-top: 0 !important; /* Հեռացնում ենք բոլոր բացասական մարժինները */
+    	margin-top: 0 !important;
     	padding: 0 !important;
 }
 
 .hero-bg {
     width: 100% !important;
-    height: auto !important; /* Սա ամենակարևորն է. նկարը կբացվի իր բնական չափով */
-    max-height: 50vh; /* Հեռախոսի վրա թող չանցնի էկրանի կեսը */
+    height: auto !important; 
+    max-height: 50vh; 
     object-fit: cover;
     display: block;
 }
@@ -55,15 +55,26 @@ body {
 @media (min-width: 768px) {
    	 body { padding-top: 60px; }
 	.hero-bg {
-        max-height: 70vh; /* Համակարգչի վրա մի քիչ ավելի մեծ */
+        max-height: 70vh; 
     }
 }
 
         .modal > div {
-        width: 95%;
-        max-width: 450px;
-        max-height: 90vh;
-        overflow-y: auto;
+        width: 90% !important;
+    	max-width: 420px !important;
+    	background: white;
+    	border-radius: 24px;
+    	padding: 20px;
+    	position: relative;
+    	box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    	min-height: 70vh;
+    	max-height: 85vh; 
+
+	padding: 30px 20px;
+    	position: relative;
+    	overflow-y: auto;
+    	display: flex;
+    	flex-direction: column;
     }
         
 	
@@ -161,7 +172,7 @@ body {
                             <tr class="border-b"><td class="py-2.5 font-bold text-slate-800" data-key="spec_sensors">Սենսորներ</td><td class="py-2.5 text-slate-600 text-right" data-key="spec_sensors_val">Խոնավություն, CO2, Լույս</td></tr>
                             <tr class="border-b"><td class="py-2.5 font-bold text-slate-800" data-key="spec_power">Սնուցում</td><td class="py-2.5 text-slate-600 text-right" data-key="spec_power_val">220V / Արևային վահանակ</td></tr>
                             <tr class="border-b"><td class="py-2.5 font-bold text-slate-800" data-key="spec_warranty">Երաշխիք</td><td class="py-2.5 text-slate-600 text-right" data-key="spec_warranty_val">2 տարի</td></tr>
-                            <tr class="border-b"><td class="py-2.5 font-bold text-slate-800" data-key="spec_country">Երկիր</td><td class="py-2.5 text-slate-600 text-right" data-key="spec_country_val">Հայաստան</td></tr>
+                            <tr class="border-b"><td class="py-2.5 font-bold text-slate-800" data-key="spec_country">Արտադրող Երկիր</td><td class="py-2.5 text-slate-600 text-right" data-key="spec_country_val">Հայաստան</td></tr>
                         </table>
                     </div>
 
@@ -272,11 +283,9 @@ body {
 </button>
 
 <script>
-    // Այս ֆունկցիան ավելացրու քո գոյություն ունեցող <script>-ի մեջ
     function checkAgreements() {
         const checkboxes = document.querySelectorAll('.agreement-check');
         const payBtn = document.getElementById('pay-btn');
-        // Ստուգում ենք՝ արդյոք բոլորը նշված են
         const allChecked = Array.from(checkboxes).every(c => c.checked);
         
         if (allChecked) {
@@ -288,7 +297,6 @@ body {
         }
     }
 
-    // Մյուս բոլոր ֆունկցիաները (changeLang, moveSlide, finalPay և այլն) թող նույնությամբ
 </script>
             </div>
         </div>
@@ -303,7 +311,7 @@ body {
                 spec_brand: "Բրենդ", spec_type: "Տեսակ", spec_type_val: "Մոդուլային ջերմոց", spec_ctrl: "Վերահսկում", spec_ctrl_val: "Ավտոմատացված / Wi-Fi",
                 spec_mat: "Նյութ", spec_mat_val: "Ալյումին / Պոլիկարբոնատ", spec_sensors: "Սենսորներ", spec_sensors_val: "Խոնավություն, CO2, Լույս",
                 spec_power: "Սնուցում", spec_power_val: "220V / Արևային վահանակ", spec_warranty: "Երաշխիք", spec_warranty_val: "2 տարի",
-                spec_country: "Երկիր", spec_country_val: "Հայաստան", btn_reserve: "Ամրագրել հիմա", btn_cart: "Ավելացնել զամբյուղ", limited_offer: "Սահմանափակ առաջարկ",
+                spec_country: "Արտադրող Երկիր", spec_country_val: "Հայաստան", btn_reserve: "Ամրագրել հիմա", btn_cart: "Ավելացնել զամբյուղ", limited_offer: "Սահմանափակ առաջարկ",
                 modal_login: "Մուտք", modal_email_sub: "Մուտքագրեք Ձեր Gmail-ը շարունակելու համար", btn_continue: "Շարունակել", modal_pay: "Վճարում",
                 ph_name: "ՔԱՐՏԱՏԻՐՈՋ ԱՆՈՒՆԸ", ph_number: "ՔԱՐՏԻ ՀԱՄԱՐԸ",
                 agree_pci: "Ես համաձայն եմ PCI DSS միջազգային ստանդարտներով տվյալների անվտանգ մշակմանը:",
@@ -319,7 +327,7 @@ body {
                 spec_brand: "Brand", spec_type: "Type", spec_type_val: "Modular Greenhouse", spec_ctrl: "Control", spec_ctrl_val: "Automated / Wi-Fi",
                 spec_mat: "Material", spec_mat_val: "Aluminum / Polycarbonate", spec_sensors: "Sensors", spec_sensors_val: "Humidity, CO2, Light",
                 spec_power: "Power", spec_power_val: "220V / Solar Panel", spec_warranty: "Warranty", spec_warranty_val: "2 years",
-                spec_country: "Country", spec_country_val: "Armenia", btn_reserve: "Reserve Now", btn_cart: "Add to Cart", limited_offer: "Limited Offer",
+                spec_country: "Country of Origin", spec_country_val: "Armenia", btn_reserve: "Reserve Now", btn_cart: "Add to Cart", limited_offer: "Limited Offer",
                 modal_login: "Login", modal_email_sub: "Enter your Gmail to continue", btn_continue: "Continue", modal_pay: "Payment",
                 ph_name: "CARDHOLDER NAME", ph_number: "CARD NUMBER",
                 agree_pci: "I agree to secure data processing under PCI DSS standards.",
@@ -335,7 +343,7 @@ body {
                 spec_brand: "Бренд", spec_type: "Тип", spec_type_val: "Модульная теплица", spec_ctrl: "Управление", spec_ctrl_val: "Автомат / Wi-Fi",
                 spec_mat: "Материал", spec_mat_val: "Алюминий / Поликарбонат", spec_sensors: "Датчики", spec_sensors_val: "Влажность, CO2, Свет",
                 spec_power: "Питание", spec_power_val: "220V / Солнечная панель", spec_warranty: "Гарантия", spec_warranty_val: "2 года",
-                spec_country: "Страна", spec_country_val: "Армения", btn_reserve: "Забронировать", btn_cart: "В корзину", limited_offer: "Лимитированное предложение",
+                spec_country: "Страна Производитель", spec_country_val: "Армения", btn_reserve: "Забронировать", btn_cart: "В корзину", limited_offer: "Лимитированное предложение",
                 modal_login: "Вход", modal_email_sub: "Введите ваш Gmail для продолжения", btn_continue: "Продолжить", modal_pay: "Оплата",
                 ph_name: "ИМЯ ВЛАДЕЛЬЦА КАРТЫ", ph_number: "НОМЕР КАРТЫ",
                 agree_pci: "Согласен на обработку данных по стандартам PCI DSS.",
