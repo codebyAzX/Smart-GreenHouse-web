@@ -37,15 +37,26 @@ body {
 }
 
 .hero-container { 
-    	width: 100%; 
-	overflow: hidden;
-    	position: relative;
-	margin-top: -10px;
+    	width: 100% !important;
+    	position: relative !important;
+    	margin-top: 0 !important; /* Հեռացնում ենք բոլոր բացասական մարժինները */
+    	padding: 0 !important;
+}
+
+.hero-bg {
+    width: 100% !important;
+    height: auto !important; /* Սա ամենակարևորն է. նկարը կբացվի իր բնական չափով */
+    max-height: 50vh; /* Հեռախոսի վրա թող չանցնի էկրանի կեսը */
+    object-fit: cover;
+    display: block;
 }
 
 
 @media (min-width: 768px) {
-    body { padding-top: 60px; }
+   	 body { padding-top: 60px; }
+	.hero-bg {
+        max-height: 70vh; /* Համակարգչի վրա մի քիչ ավելի մեծ */
+    }
 }
 
         .modal > div {
@@ -57,7 +68,7 @@ body {
         
 	
 	.hero-title {
-        font-size: 1.5rem;
+        font-size: 20px 0;
     }
         .card-visual { 
     	background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important; 
@@ -90,10 +101,6 @@ body {
         .slide img { width: auto; max-width: 100%; height: 300px; object-fit: contain; }
         @media (min-width: 768px) { .slide img { height: 450px; } }
         .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: white; padding: 10px; border-radius: 50%; cursor: pointer; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-	.hero-bg {
-        /* Համակարգչի վրա թող մնա ավելի մեծ կամ փոքրացրու ըստ ցանկության */
-        height: 60vh; 
-    }
         #cart-count { position: absolute; top: -5px; right: -8px; background: #ef4444; color: white; font-size: 10px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
         .lang-btn { font-size: 11px; font-weight: bold; color: #475569; cursor: pointer; padding: 2px 4px; transition: color 0.3s; }
         .lang-active { color: #10b981; border-bottom: 2px solid #10b981; }
