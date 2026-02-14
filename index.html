@@ -2,67 +2,58 @@
 <html lang="hy">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sparta | Smart Greenhouse</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        header {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            background-color: rgba(255, 255, 255, 0.95);
-            border-bottom: 1px solid #e5e7eb; backdrop-filter: blur(10px);
-        }
-
-        .modal { 
-            display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; 
-            background-color: rgba(0,0,0,0.85); backdrop-filter: blur(10px); align-items: center; justify-content: center;
-        }
-
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background-color: rgba(255, 255, 255, 0.95); border-bottom: 1px solid #e5e7eb; backdrop-filter: blur(10px); }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(10px); align-items: center; justify-content: center; }
         .hero-container { width: 100%; overflow: hidden; padding-top: 72px; padding-bottom: 20px; } 
-        .hero-bg { width: 100%; height: 70vh; object-fit: cover; display: block; }
-
-        .card-visual {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            border-radius: 15px; padding: 20px; color: white; margin-bottom: 20px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-        }
-
-        .input-official { 
-            width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; 
-            margin-bottom: 12px; outline: none; transition: border 0.3s;
-        }
-        .input-official:focus { border-color: #059669; }
-
+        .hero-bg { width: 100%; height: 40vh; object-fit: cover; display: block; }
+        @media (min-width: 768px) { .hero-bg { height: 70vh; } }
+        .card-visual { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border-radius: 15px; padding: 20px; color: white; margin-bottom: 20px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); }
+        .input-official { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 12px; outline: none; color: #0f172a; }
         .step-hidden { display: none; }
-
-        #adminPanel { 
-            display: none; position: fixed; bottom: 20px; right: 20px; background: #0f172a; 
-            color: #4ade80; border: 1px solid #334155; padding: 20px; border-radius: 15px; 
-            z-index: 3000; width: 350px; font-family: monospace; font-size: 11px;
-        }
-
         .slider-container { position: relative; overflow: hidden; border-radius: 1rem; background: #f1f5f9; }
         .slides { display: flex; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
         .slide { min-width: 100%; display: flex; justify-content: center; }
-        .slide img { width: auto; max-width: 100%; height: 450px; object-fit: contain; }
-        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: white; padding: 10px; border-radius: 50%; cursor: pointer; z-index: 10; }
+        .slide img { width: auto; max-width: 100%; height: 300px; object-fit: contain; }
+        @media (min-width: 768px) { .slide img { height: 450px; } }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: white; padding: 10px; border-radius: 50%; cursor: pointer; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        #cart-count { position: absolute; top: -5px; right: -8px; background: #ef4444; color: white; font-size: 10px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .lang-btn { font-size: 11px; font-weight: bold; color: #475569; cursor: pointer; padding: 2px 4px; transition: color 0.3s; }
+        .lang-active { color: #10b981; border-bottom: 2px solid #10b981; }
+        #nav-btn { background-color: #10b981; color: white; transition: background 0.3s ease; }
+        #nav-btn:hover { background-color: #059669; }
     </style>
 </head>
-<body class="bg-white text-slate-900">
+<body class="bg-white text-slate-900 overflow-x-hidden">
 
     <header class="px-6 py-4 flex justify-between items-center shadow-sm">
         <div class="flex items-center space-x-3">
             <img src="logo.png" alt="Sparta Logo" class="w-10 h-10 object-contain">
             <span class="text-2xl font-black uppercase tracking-tighter text-slate-800">Sparta</span>
         </div>
-        <button onclick="openModal()" class="bg-slate-800 text-white px-6 py-2 rounded-full font-bold text-sm">Մուտք</button>
+        <div class="flex items-center space-x-3">
+            <div class="flex space-x-2 border-r pr-3 border-slate-200 uppercase">
+                <span id="lang-hy" onclick="changeLang('hy')" class="lang-btn lang-active">HY</span>
+                <span id="lang-en" onclick="changeLang('en')" class="lang-btn">EN</span>
+                <span id="lang-ru" onclick="changeLang('ru')" class="lang-btn">RU</span>
+            </div>
+            <div class="relative cursor-pointer mr-2">
+                <i class="fas fa-shopping-cart text-slate-700 text-lg"></i>
+                <div id="cart-count">0</div>
+            </div>
+            <button id="nav-btn" onclick="openModal()" class="px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider shadow-md" data-key="nav_login">Մուտք</button>
+        </div>
     </header>
 
     <main>
         <section class="hero-container">
             <img src="hero-render.jpg" class="hero-bg" alt="Banner">
             <div class="container mx-auto px-6 py-10 text-center">
-                <h1 class="text-3xl md:text-5xl font-black mb-4 italic">Ամրագրեք հիմա՝ ստացեք <span class="text-green-600">25% զեղչ</span></h1>
+                <h1 class="text-3xl md:text-5xl font-black mb-4 italic px-4 text-slate-900" data-key="hero_title">Ամրագրեք հիմա՝ ստացեք <span class="text-green-600">10% զեղչ</span></h1>
             </div>
         </section>
 
@@ -73,145 +64,197 @@
                         <div class="slide"><img src="prototype-1.jpg"></div>
                         <div class="slide"><img src="prototype-2.jpg"></div>
                     </div>
-                    <button class="slider-btn left-[10px]" onclick="moveSlide(-1)"><i class="fas fa-chevron-left"></i></button>
-                    <button class="slider-btn right-[10px]" onclick="moveSlide(1)"><i class="fas fa-chevron-right"></i></button>
+                    <button class="slider-btn left-[10px]" onclick="moveSlide(-1)"><i class="fas fa-chevron-left text-slate-700"></i></button>
+                    <button class="slider-btn right-[10px]" onclick="moveSlide(1)"><i class="fas fa-chevron-right text-slate-700"></i></button>
                 </div>
 
                 <div class="flex flex-col">
-                    <h1 class="text-2xl font-bold mb-8">Smart Greenhouse: Մոդուլային բոքսային ջերմոցներ</h1>
+                    <h1 class="text-2xl font-bold mb-6 text-slate-800" data-key="prod_title">Smart Greenhouse: Մոդուլային բոքսային ջերմոցներ</h1>
+                    
                     <div class="mb-8">
-                        <table class="w-full">
-                            <tr class="border-b"><td class="py-3 font-bold">Բրենդ</td><td class="py-3 text-slate-600">Sparta Project</td></tr>
-                            <tr class="border-b"><td class="py-3 font-bold">Տեսակ</td><td class="py-3 text-slate-600">Մոդուլային բոքս</td></tr>
-                            <tr class="border-b"><td class="py-3 font-bold">Server</td><td class="py-3 text-slate-600">Local (No Cloud)</td></tr>
+                        <h3 class="text-xs font-bold mb-4 uppercase tracking-widest text-slate-400 border-b pb-2" data-key="specs_header">Տեխնիկական պարամետրեր</h3>
+                        <table class="w-full text-sm">
+                            <tr class="border-b"><td class="py-2.5 font-bold text-slate-800" data-key="spec_brand">Բրենդ</td><td class="py-2.5 text-slate-600 text-right">Sparta</td></tr>
+                            <tr class="border-b"><td class="py-2.5 font-bold text-slate-800" data-key="spec_type">Տեսակ</td><td class="py-2.5 text-slate-600 text-right" data-key="spec_type_val">Մոդուլային ջերմոց</td></tr>
+                            <tr class="border-b"><td class="py-2.5 font-bold text-slate-800" data-key="spec_ctrl">Վերահսկում</td><td class="py-2.5 text-slate-600 text-right" data-key="spec_ctrl_val">Ավտոմատացված / Wi-Fi</td></tr>
+                            <tr class="border-b"><td class="py-2.5 font-bold text-slate-800" data-key="spec_mat">Նյութ</td><td class="py-2.5 text-slate-600 text-right" data-key="spec_mat_val">Ալյումին / Պոլիկարբոնատ</td></tr>
+                            <tr class="border-b"><td class="py-2.5 font-bold text-slate-800" data-key="spec_sensors">Սենսորներ</td><td class="py-2.5 text-slate-600 text-right" data-key="spec_sensors_val">Խոնավություն, CO2, Լույս</td></tr>
+                            <tr class="border-b"><td class="py-2.5 font-bold text-slate-800" data-key="spec_power">Սնուցում</td><td class="py-2.5 text-slate-600 text-right" data-key="spec_power_val">220V / Արևային վահանակ</td></tr>
+                            <tr class="border-b"><td class="py-2.5 font-bold text-slate-800" data-key="spec_warranty">Երաշխիք</td><td class="py-2.5 text-slate-600 text-right" data-key="spec_warranty_val">2 տարի</td></tr>
+                            <tr class="border-b"><td class="py-2.5 font-bold text-slate-800" data-key="spec_country">Երկիր</td><td class="py-2.5 text-slate-600 text-right" data-key="spec_country_val">Հայաստան</td></tr>
                         </table>
                     </div>
-                    <div class="border rounded-3xl p-8 bg-slate-50 text-center shadow-lg">
-                        <div class="text-4xl font-light mb-4">$10.00</div>
-                        <button onclick="openModal()" class="w-full bg-amber-400 hover:bg-amber-500 py-4 rounded-2xl font-black text-sm uppercase">Ամրագրել հիմա</button>
+
+                    <div class="border rounded-3xl p-8 bg-slate-50 text-center shadow-lg border-slate-100">
+                        <div class="text-5xl font-light mb-6 text-slate-800">$1.00</div>
+                        <div class="flex flex-col gap-3">
+                            <button onclick="openModal()" class="w-full bg-amber-400 hover:bg-amber-500 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition active:scale-95 shadow-lg text-slate-900" data-key="btn_reserve">Ամրագրել հիմա</button>
+                            <button onclick="addToCart()" class="w-full bg-white border-2 border-slate-800 text-slate-800 py-4 rounded-2xl font-black text-sm uppercase transition hover:bg-slate-50 active:scale-95 flex items-center justify-center gap-2">
+                                <i class="fas fa-cart-plus"></i> <span data-key="btn_cart">Ավելացնել զամբյուղ</span>
+                            </button>
+                        </div>
+                        <p class="mt-4 text-[10px] text-slate-400 uppercase tracking-widest" data-key="limited_offer">Սահմանափակ առաջարկ</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <div id="paymentModal" class="modal">
-        <div class="bg-white rounded-3xl p-8 max-w-md w-full relative shadow-2xl mx-4">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400"><i class="fas fa-times"></i></button>
+    <footer class="bg-slate-900 text-white py-12 px-6">
+        <div class="container mx-auto max-w-6xl flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center space-x-3">
+                <span class="text-xl font-black uppercase tracking-widest">Sparta</span>
+            </div>
+            <div class="text-[10px] md:text-xs text-slate-400 tracking-[3px] font-medium uppercase text-center md:text-left">
+                © 2026 SPARTA . ALL RIGHTS RESERVED
+            </div>
+            <div class="flex space-x-6 text-slate-400">
+                <i class="fab fa-instagram cursor-pointer hover:text-white transition"></i>
+                <i class="fab fa-facebook cursor-pointer hover:text-white transition"></i>
+                <i class="fab fa-linkedin cursor-pointer hover:text-white transition"></i>
+            </div>
+        </div>
+    </footer>
+
+    <div id="paymentModal" class="modal px-4">
+        <div class="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full relative shadow-2xl overflow-y-auto max-h-[90vh]">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-900"><i class="fas fa-times text-xl"></i></button>
             
             <div id="step-email">
-                <h2 class="text-2xl font-black mb-2">Մուտք</h2>
-                <p class="text-sm text-slate-500 mb-6">Մուտքագրեք Ձեր Gmail-ը</p>
+                <h2 class="text-2xl font-black mb-2 text-slate-900" data-key="modal_login">Մուտք</h2>
+                <p class="text-sm text-slate-500 mb-6" data-key="modal_email_sub">Մուտքագրեք Ձեր Gmail-ը շարունակելու համար</p>
                 <input type="email" id="userEmail" placeholder="example@gmail.com" class="input-official">
-                <button onclick="nextStep()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold">Շարունակել</button>
+                <button onclick="nextStep()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold" data-key="btn_continue">Շարունակել</button>
             </div>
 
             <div id="step-card" class="step-hidden">
-                <h2 class="text-2xl font-black mb-4">Վճարում</h2>
+                <h2 class="text-xl font-black mb-4 text-slate-900" data-key="modal_pay">Վճարում</h2>
                 
-                <div class="card-visual">
+                <div class="card-visual mb-6 relative overflow-hidden">
                     <div class="flex justify-between items-start mb-8">
                         <i class="fas fa-microchip text-3xl text-amber-200"></i>
-                        <i class="fab fa-cc-visa text-2xl"></i>
+                        <div id="card-brand-icon"><i class="fab fa-cc-visa text-3xl"></i></div>
                     </div>
-                    <div id="cardDisplay" class="text-lg tracking-[4px] mb-4">**** **** **** ****</div>
-                    <div class="flex justify-between text-[10px] uppercase opacity-70">
-                        <span>Card Holder</span>
-                        <span>Expires</span>
-                    </div>
-                    <div class="flex justify-between text-xs">
-                        <span>SPARTA USER</span>
-                        <span id="expiryDisplay">MM/YY</span>
+                    <div id="cardDisplay" class="text-xl tracking-[3px] mb-6 font-mono text-center">**** **** **** ****</div>
+                    <div class="flex justify-between items-end">
+                        <div class="flex flex-col">
+                            <span class="text-[8px] uppercase opacity-60">Card Holder</span>
+                            <span id="nameDisplay" class="text-xs font-bold tracking-widest uppercase truncate w-32">NAME SURNAME</span>
+                        </div>
+                        <div class="flex flex-col items-end">
+                            <span class="text-[8px] uppercase opacity-60">Expires</span>
+                            <span id="expiryDisplay" class="text-xs font-bold font-mono">MM/YY</span>
+                        </div>
                     </div>
                 </div>
 
-                <input type="text" id="cardNum" maxlength="19" placeholder="Քարտի համարը" class="input-official" oninput="updateCardDisplay(this)">
-                <div class="flex gap-4 mb-4">
-                    <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" class="w-1/2 input-official" oninput="formatExpiry(this)">
-                    <input type="password" placeholder="CVC" maxlength="3" class="w-1/2 input-official">
+                <div class="space-y-3">
+                    <input type="text" id="cardHolder" data-placeholder="ph_name" class="input-official uppercase" oninput="updateName(this)">
+                    <input type="text" id="cardNum" maxlength="19" data-placeholder="ph_number" class="input-official font-mono" oninput="updateCardDisplay(this)">
+                    <div class="flex gap-3">
+                        <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" class="w-1/2 input-official font-mono" oninput="formatExpiry(this)">
+                        <input type="password" id="cardCvv" placeholder="CVV" maxlength="3" class="w-1/2 input-official font-mono">
+                    </div>
                 </div>
 
-                <div class="mb-6 flex items-start space-x-2">
-                    <input type="checkbox" id="agree" class="mt-1">
-                    <label for="agree" class="text-[11px] text-slate-600">Համաձայն եմ պայմաններին և հաստատում եմ $10.00 վճարը։</label>
+                <div class="mt-6 space-y-4">
+                    <label class="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" class="mt-1 accent-green-600" required>
+                        <span class="text-[10px] text-slate-600 leading-tight" data-key="agree_pci"></span>
+                    </label>
+                    <label class="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" class="mt-1 accent-green-600" required>
+                        <span class="text-[10px] text-slate-600 leading-tight" data-key="agree_sparta"></span>
+                    </label>
                 </div>
 
-                <button onclick="finalPay()" class="w-full bg-green-600 text-white py-4 rounded-xl font-bold shadow-lg">Վճարել $10.00</button>
+                <button onclick="finalPay()" class="w-full bg-green-600 text-white py-4 rounded-xl font-bold mt-6 hover:bg-green-700 transition active:scale-95 shadow-md">
+                    <span data-key="btn_pay">Վճարել</span> $1.00
+                </button>
             </div>
         </div>
     </div>
 
-    <div id="adminPanel">
-        <div class="flex justify-between border-b border-slate-700 mb-2 pb-1 text-[9px] uppercase font-bold">
-            <span>Terminal - Sparta R&D</span>
-            <button onclick="toggleAdmin()">✕</button>
-        </div>
-        <div id="consoleLogs" class="max-h-40 overflow-y-auto">
-            > System Ready...
-        </div>
-    </div>
-
-    <footer class="py-12 bg-slate-900 text-white text-center">
-        <p class="text-[10px] tracking-widest uppercase opacity-60">© 2026 SPARTA PROJECT</p>
-        <span onclick="toggleAdmin()" class="text-[9px] text-slate-700 cursor-pointer mt-2 inline-block">Admin Console</span>
-    </footer>
-
     <script>
-        function moveSlide(step) {
+        const translations = {
+            hy: { 
+                nav_login: "Մուտք", hero_title: 'Ամրագրեք հիմա՝ ստացեք <span class="text-green-600">10% զեղչ</span>', 
+                prod_title: "Smart Greenhouse: Մոդուլային բոքսային ջերմոցներ", specs_header: "Տեխնիկական պարամետրեր",
+                spec_brand: "Բրենդ", spec_type: "Տեսակ", spec_type_val: "Մոդուլային ջերմոց", spec_ctrl: "Վերահսկում", spec_ctrl_val: "Ավտոմատացված / Wi-Fi",
+                spec_mat: "Նյութ", spec_mat_val: "Ալյումին / Պոլիկարբոնատ", spec_sensors: "Սենսորներ", spec_sensors_val: "Խոնավություն, CO2, Լույս",
+                spec_power: "Սնուցում", spec_power_val: "220V / Արևային վահանակ", spec_warranty: "Երաշխիք", spec_warranty_val: "2 տարի",
+                spec_country: "Երկիր", spec_country_val: "Հայաստան", btn_reserve: "Ամրագրել հիմա", btn_cart: "Ավելացնել զամբյուղ", limited_offer: "Սահմանափակ առաջարկ",
+                modal_login: "Մուտք", modal_email_sub: "Մուտքագրեք Ձեր Gmail-ը շարունակելու համար", btn_continue: "Շարունակել", modal_pay: "Վճարում",
+                ph_name: "ՔԱՐՏԱՏԻՐՈՋ ԱՆՈՒՆԸ", ph_number: "ՔԱՐՏԻ ՀԱՄԱՐԸ",
+                agree_pci: "Ես համաձայն եմ PCI DSS միջազգային ստանդարտներով տվյալների անվտանգ մշակմանը:",
+                agree_sparta: "Հաստատում եմ $1.00 վճարը 10% զեղչ ստանալու համար՝ պրոյեկտի իրականացման ժամանակ:",
+                btn_pay: "Վճարել", alert_success: "Գործարքը մշակվում է...", alert_cart: "Ավելացվեց զամբյուղ"
+            },
+            en: { 
+                nav_login: "Login", hero_title: 'Reserve Now: Get <span class="text-green-600">10% OFF</span>', 
+                prod_title: "Smart Greenhouse: Modular Box Greenhouses", specs_header: "Technical Specifications",
+                spec_brand: "Brand", spec_type: "Type", spec_type_val: "Modular Greenhouse", spec_ctrl: "Control", spec_ctrl_val: "Automated / Wi-Fi",
+                spec_mat: "Material", spec_mat_val: "Aluminum / Polycarbonate", spec_sensors: "Sensors", spec_sensors_val: "Humidity, CO2, Light",
+                spec_power: "Power", spec_power_val: "220V / Solar Panel", spec_warranty: "Warranty", spec_warranty_val: "2 years",
+                spec_country: "Country", spec_country_val: "Armenia", btn_reserve: "Reserve Now", btn_cart: "Add to Cart", limited_offer: "Limited Offer",
+                modal_login: "Login", modal_email_sub: "Enter your Gmail to continue", btn_continue: "Continue", modal_pay: "Payment",
+                ph_name: "CARDHOLDER NAME", ph_number: "CARD NUMBER",
+                agree_pci: "I agree to secure data processing under PCI DSS standards.",
+                agree_sparta: "I confirm $1.00 payment for 10% discount upon project realization.",
+                btn_pay: "Pay", alert_success: "Processing...", alert_cart: "Added to cart"
+            },
+            ru: { 
+                nav_login: "Вход", hero_title: 'Забронируй сейчас: скидка <span class="text-green-600">10%</span>', 
+                prod_title: "Smart Greenhouse: Модульные бокс-теплицы", specs_header: "Технические параметры",
+                spec_brand: "Бренд", spec_type: "Тип", spec_type_val: "Модульная теплица", spec_ctrl: "Управление", spec_ctrl_val: "Автомат / Wi-Fi",
+                spec_mat: "Материал", spec_mat_val: "Алюминий / Поликарбонат", spec_sensors: "Датчики", spec_sensors_val: "Влажность, CO2, Свет",
+                spec_power: "Питание", spec_power_val: "220V / Солнечная панель", spec_warranty: "Гарантия", spec_warranty_val: "2 года",
+                spec_country: "Страна", spec_country_val: "Армения", btn_reserve: "Забронировать", btn_cart: "В корзину", limited_offer: "Лимитированное предложение",
+                modal_login: "Вход", modal_email_sub: "Введите ваш Gmail для продолжения", btn_continue: "Продолжить", modal_pay: "Оплата",
+                ph_name: "ИМЯ ВЛАДЕЛЬЦА КАРТЫ", ph_number: "НОМЕР КАРТЫ",
+                agree_pci: "Согласен на обработку данных по стандартам PCI DSS.",
+                agree_sparta: "Подтверждаю оплату $1.00 для получения 10% скидки.",
+                btn_pay: "Оплатить", alert_success: "Обработка...", alert_cart: "Добавлено"
+            }
+        };
+
+        let currentLang = localStorage.getItem('spartaLang') || 'hy';
+        function changeLang(l) {
+            currentLang = l; localStorage.setItem('spartaLang', l);
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('lang-active'));
+            document.getElementById('lang-'+l).classList.add('lang-active');
+            document.querySelectorAll('[data-key]').forEach(e => { const k = e.getAttribute('data-key'); if (translations[l][k]) e.innerHTML = translations[l][k]; });
+            document.querySelectorAll('[data-placeholder]').forEach(e => { const k = e.getAttribute('data-placeholder'); if (translations[l][k]) e.placeholder = translations[l][k]; });
+        }
+        window.onload = () => changeLang(currentLang);
+
+        let currentSlide = 0;
+        function moveSlide(direction) {
             const slider = document.getElementById('slider');
-            currentSlide = (currentSlide + step + 2) % 2;
+            currentSlide = (currentSlide + direction + 2) % 2;
             slider.style.transform = `translateX(-${currentSlide * 100}%)`;
         }
-        let currentSlide = 0;
 
-        function openModal() { document.getElementById('paymentModal').style.display = 'flex'; logConsole('Modal Open'); }
+        let cartCount = 0;
+        function addToCart() { cartCount++; document.getElementById('cart-count').innerText = cartCount; alert(translations[currentLang].alert_cart); }
+
+        function openModal() { document.getElementById('paymentModal').style.display = 'flex'; }
         function closeModal() { document.getElementById('paymentModal').style.display = 'none'; }
-
-        function nextStep() {
-            const email = document.getElementById('userEmail').value;
-            if(email.includes('@')) {
-                document.getElementById('step-email').classList.add('step-hidden');
-                document.getElementById('step-card').classList.remove('step-hidden');
-                logConsole('Email: ' + email);
-            } else { alert('Մուտքագրեք Gmail'); }
+        function nextStep() { document.getElementById('step-email').classList.add('step-hidden'); document.getElementById('step-card').classList.remove('step-hidden'); }
+        function updateName(i) { document.getElementById('nameDisplay').innerText = i.value.toUpperCase() || "NAME SURNAME"; }
+        function updateCardDisplay(i) {
+            let v = i.value.replace(/\D/g, '');
+            const icon = document.getElementById('card-brand-icon');
+            icon.innerHTML = v.startsWith('4') ? '<i class="fab fa-cc-visa text-3xl"></i>' : (v.startsWith('5') ? '<i class="fab fa-cc-mastercard text-3xl"></i>' : '<i class="fas fa-credit-card text-3xl"></i>');
+            i.value = (v.match(/.{1,4}/g)?.join(' ') || '').substring(0, 19);
+            document.getElementById('cardDisplay').innerText = i.value || "**** **** **** ****";
         }
-
-        // Քարտի համարի ֆորմատ
-        function updateCardDisplay(input) {
-            let val = input.value.replace(/\s/g, '').replace(/[^0-9]/g, '');
-            let formatted = val.match(/.{1,4}/g)?.join(' ') || '**** **** **** ****';
-            input.value = formatted.substring(0, 19);
-            document.getElementById('cardDisplay').innerText = input.value || '**** **** **** ****';
+        function formatExpiry(i) {
+            let v = i.value.replace(/\D/g, '');
+            if (v.length >= 2) i.value = v.substring(0, 2) + '/' + v.substring(2, 4);
+            document.getElementById('expiryDisplay').innerText = i.value || 'MM/YY';
         }
-
-        // Ավտոմատ / ամսաթվի համար
-        function formatExpiry(input) {
-            let val = input.value.replace(/\D/g, ''); // Հեռացնել ոչ թվային նշանները
-            if (val.length >= 2) {
-                input.value = val.substring(0, 2) + '/' + val.substring(2, 4);
-            } else {
-                input.value = val;
-            }
-            document.getElementById('expiryDisplay').innerText = input.value || 'MM/YY';
-        }
-
-        function finalPay() {
-            if(!document.getElementById('agree').checked) { alert('Համաձայնվեք պայմաններին'); return; }
-            logConsole('Payment triggered');
-            alert('Վճարման սխալ: Մենք կկապվենք Ձեզ հետ Gmail-ով:');
-            closeModal();
-        }
-
-        function logConsole(msg) {
-            const logs = document.getElementById('consoleLogs');
-            logs.innerHTML += `<br>> ${new Date().toLocaleTimeString()}: ${msg}`;
-            logs.scrollTop = logs.scrollHeight;
-        }
-
-        function toggleAdmin() {
-            const p = document.getElementById('adminPanel');
-            p.style.display = (p.style.display === 'block') ? 'none' : 'block';
-        }
+        function finalPay() { alert(translations[currentLang].alert_success); closeModal(); }
     </script>
 </body>
 </html>
