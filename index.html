@@ -152,8 +152,11 @@ body {
             <div class="grid lg:grid-cols-2 gap-12 items-start">
                 <div class="slider-container shadow-xl">
                     <div class="slides" id="slider">
-                        <div class="slide"><img src="prototype-1.png"></div>
-                        <div class="slide"><img src="prototype-2.png"></div>
+    			<div class="slide"><img src="prototype-1.png"></div>
+   			<div class="slide"><img src="prototype-2.png"></div>
+    			<div class="slide"><img src="prototype-3.png"></div>
+    			<div class="slide"><img src="prototype-4.png"></div>
+		</div>
                     </div>
                     <button class="slider-btn left-[10px]" onclick="moveSlide(-1)"><i class="fas fa-chevron-left text-slate-700"></i></button>
                     <button class="slider-btn right-[10px]" onclick="moveSlide(1)"><i class="fas fa-chevron-right text-slate-700"></i></button>
@@ -392,7 +395,7 @@ body {
 	let currentSlide = 0;
 	function moveSlide(direction) {
     	const slider = document.getElementById('slider');
-    	currentSlide = (currentSlide + direction + 2) % 2;
+    	currentSlide = (currentSlide + direction + 4) % 4;
     	slider.style.transform = `translateX(-${currentSlide * 100}%)`;
 }
 
