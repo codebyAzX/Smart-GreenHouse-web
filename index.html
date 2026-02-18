@@ -108,7 +108,7 @@ body {
         .step-hidden { display: none; }
         .slider-container { position: relative; overflow: hidden; border-radius: 1rem; background: #f1f5f9; }
         .slides { display: flex; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .slide { min-width: 100%; flex-shrink: 0; display: flex; justify-content: center; }
+        .slide { min-width: 100%; flex-shrink: 0;display: flex; justify-content: center; }
         .slide img { width: auto; max-width: 100%; height: 300px; object-fit: contain; }
         @media (min-width: 768px) { .slide img { height: 450px; } }
         .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: white; padding: 10px; border-radius: 50%; cursor: pointer; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
@@ -392,15 +392,17 @@ body {
 	window.onload = () => changeLang(currentLang);
 
 	let currentSlide = 0;
+	const totalSlides = 4;
 	function moveSlide(direction) {
     	const slider = document.getElementById('slider');
-            currentSlide += direction;
+    	currentSlide += direction;
             
+           
             if (currentSlide >= totalSlides) currentSlide = 0;
             if (currentSlide < 0) currentSlide = totalSlides - 1;
-
-    	slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-}
+            
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
 
         let cartCount = 0;
         function addToCart() { cartCount++; document.getElementById('cart-count').innerText = cartCount; alert(translations[currentLang].alert_cart); }
