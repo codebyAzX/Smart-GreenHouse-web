@@ -150,7 +150,6 @@ body {
 
         <section class="py-12 container mx-auto px-6 max-w-6xl">
             <div class="grid lg:grid-cols-2 gap-12 items-start">
-                <div class="slider-container shadow-xl">
                     <div class="slides" id="slider">
     			<div class="slide"><img src="prototype-1.png"></div>
    			<div class="slide"><img src="prototype-2.png"></div>
@@ -395,7 +394,7 @@ body {
 	let currentSlide = 0;
 	function moveSlide(direction) {
     	const slider = document.getElementById('slider');
-    	currentSlide = (currentSlide + direction + 4) % 4;
+    	currentSlide = (currentSlide + direction + 2) % 2;
     	slider.style.transform = `translateX(-${currentSlide * 100}%)`;
 }
 
