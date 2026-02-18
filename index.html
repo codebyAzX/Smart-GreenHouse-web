@@ -149,8 +149,8 @@ body {
         </section>
 
         <section class="py-12 container mx-auto px-6 max-w-6xl">
-            <div class="grid lg:grid-cols-2 gap-12 items-start">
-                <div class="slider-container shadow-xl lg:col-span-2">
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                <div class="slider-container shadow-xl">
                     <div class="slides" id="slider">
                         <div class="slide"><img src="prototype-1.png"></div>
                         <div class="slide"><img src="prototype-2.png"></div>
@@ -392,15 +392,10 @@ body {
 	window.onload = () => changeLang(currentLang);
 
 	let currentSlide = 0;
-	const totalSlides = 4;
-	function moveSlide(direction) {
-    	const slider = document.getElementById('slider');
-    	currentSlide += direction;
-            
-           
-            if (currentSlide >= totalSlides) currentSlide = 0;
-            if (currentSlide < 0) currentSlide = totalSlides - 1;
-            
+        const totalSlides = 4;
+        function moveSlide(direction) {
+            const slider = document.getElementById('slider');
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
             slider.style.transform = `translateX(-${currentSlide * 100}%)`;
         }
 
